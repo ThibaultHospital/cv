@@ -1,0 +1,26 @@
+{
+  "parcours_actuel": {
+    "keywords": ["dernier poste", "poste actuel", "actuellement", "clipper", "emploi récent", "dernière mission"],
+    "reply": "Depuis 2012 (jusqu'à juillet 2026), Thibault était technicien informatique chez Clipper Technologies : interventions sur MFP, PC, imprimantes, serveurs, routeurs et pare-feu, gestion autonome de parc bureautique, et rôle de référent technique auprès des autres techniciens.",
+    "goto": "parcours",
+    "label": "Voir le détail du poste"
+  },
+  "parcours_bcontact": {
+    "keywords": ["bcontact", "b.contact", "2008", "2011", "gap", "briançon"],
+    "reply": "De 2008 à 2011, Thibault était technicien bureautique chez B.Contact développement (Gap, Briançon) : gestion du parc d'imprimantes multifonctions Toshiba, Konica Minolta et Canon, installation, maintenance, gestion des stocks et dépannage atelier.",
+    "goto": "parcours",
+    "label": "Voir le parcours complet"
+  },
+  "parcours_multilignes": {
+    "keywords": ["multilignes", "2001", "2004", "développement", "applications sur mesure", "paris"],
+    "reply": "De 2001 à 2004, chez Multilignes (Paris), Thibault développait des applications sur-mesure, assurait leur maintenance, analysait des statistiques opérationnelles, gérait la relation client et formait les utilisateurs aux outils.",
+    "goto": "parcours",
+    "label": "Voir le parcours complet"
+  },
+  "formation": {
+    "keywords": ["formation", "diplôme", "diplome", "dut", "bac", "étude", "etudes", "école"],
+    "reply": "Thibault est titulaire d'un DUT analyste programmeur appliqué à l'industrie (AFPA, Rouen, 2001) et d'un Baccalauréat Technologique STI (Lycée Joliot-Curie, Romilly-sur-Seine, 1997).",
+    "goto": "parcours",
+    "label": "Voir le parcours"
+  }
+}

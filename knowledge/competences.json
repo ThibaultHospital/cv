@@ -1,0 +1,32 @@
+{
+  "reseaux": {
+    "keywords": ["réseau", "tcp/ip", "tcpip", "routage", "routeur", "pare-feu", "firewall", "active directory", "ad "],
+    "reply": "Côté réseaux, Thibault intervient sur TCP/IP, le routage IP, les routeurs et pare-feu, ainsi que sur Active Directory. Ces compétences se sont construites sur le terrain, en environnement PME.",
+    "goto": "technologies",
+    "label": "Voir la matrice technique"
+  },
+  "systemes": {
+    "keywords": ["windows", "linux", "debian", "serveur", "virtualisation", "système", "systeme"],
+    "reply": "Sur les systèmes, Thibault travaille sur Windows client et Windows Server, ainsi que sur Linux Debian et des environnements virtualisés.",
+    "goto": "technologies",
+    "label": "Voir la matrice technique"
+  },
+  "remote": {
+    "keywords": ["distance", "remote", "télémaintenance", "hotline", "support à distance"],
+    "reply": "Thibault peut intervenir à distance : prise en main des postes, support et diagnostic à distance, en complément des interventions terrain.",
+    "goto": "technologies",
+    "label": "Voir la matrice technique"
+  },
+  "mfp_general": {
+    "keywords": ["mfp", "copieur", "copieurs", "photocopieuse", "imprimante", "imprimantes", "multifonction", "scanner"],
+    "reply": "Thibault a une solide expérience MFP et imprimantes multi-marques : installation, configuration, maintenance et dépannage, acquise chez Clipper Technologies et B.Contact développement.",
+    "goto": "expertises",
+    "label": "Voir cette expertise"
+  },
+  "data": {
+    "keywords": ["données", "donnees", "base de données", "mysql", "sql", "statistiques", "développement", "python", "ia", "intelligence artificielle", "automatisation"],
+    "reply": "Thibault a une expérience en développement d'applications sur-mesure et bases de données (chez Multilignes), et explore aujourd'hui Python, l'analyse de données et l'IA dans une logique d'apprentissage continu — voir la section Lab.",
+    "goto": "lab",
+    "label": "Voir le Lab"
+  }
+}
