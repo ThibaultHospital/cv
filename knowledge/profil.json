@@ -1,19 +1,19 @@
 {
   "profil": {
-    "keywords": ["profil", "présente", "présenter", "qui est", "résume", "résumé", "pourquoi", "recruter", "atout", "point fort", "valeur ajoutée"],
+    "keywords": ["profil", "présente", "présenter", "qui est", "résume", "résumé", "pourquoi", "recruter", "atout", "point fort", "valeur ajoutée","thibault"],
     "reply": "Thibault est technicien informatique et bureautique, avec 18 ans d'expérience terrain sur les environnements bureautiques, réseaux et infrastructures. Son profil est hybride : support B2B, MFP/imprimantes, réseaux et bases de données — avec une vraie autonomie sur le terrain.",
     "goto": "expertises",
     "label": "Voir ses expertises"
   },
   "langues": {
     "keywords": ["langue", "langues", "anglais", "français", "bilingue"],
-    "reply": "Thibault est francophone natif. Son niveau en anglais n'est pas détaillé plus précisément dans le CV actuel.",
+    "reply": "Thibault est francophone natif. Son niveau en anglais est technique. Pas d'autre langue parlée",
     "goto": "profil",
     "label": "Voir le profil"
   },
   "interets": {
     "keywords": ["intérêt", "interet", "loisir", "hobby", "passion", "sport"],
-    "reply": "En dehors du travail, Thibault s'intéresse aux nouvelles technologies, à l'impression 3D, aux sites web et à Linux — et pratique la natation, le trail, le vélo de route, le VTT, le triathlon et la randonnée.",
+    "reply": "En dehors du travail, Thibault s'intéresse aux nouvelles technologies, à l'impression 3D, à Linux et pratique la natation, le vélo de route, le VTT et la randonnée.",
     "goto": "lab",
     "label": "Voir le Lab technique"
   }
