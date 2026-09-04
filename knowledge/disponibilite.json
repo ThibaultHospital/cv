@@ -1,12 +1,12 @@
 {
   "disponibilite": {
     "keywords": ["disponib", "dispo", "quand", "immédiat", "commencer", "libre"],
-    "reply": "Thibault a terminé sa dernière mission en juillet 2026 et est disponible immédiatement. Il est basé à Montmaur (05) et mobile sur les départements 04-05-13-38, ou à distance.",
+    "reply": "Thibault a terminé sa dernière mission en juillet 2026 et est disponible immédiatement. Il est basé à Montmaur (05) et mobile sur les départements 04-05-13-38, ou à distance. Il est ouvert au télétravail",
     "goto": "contact",
     "label": "Le contacter"
   },
   "contact": {
-    "keywords": ["contact", "contacter", "email", "mail", "téléphone", "telephone", "appel", "joindre", "linkedin", "recrut", "échanger", "embaucher"],
+    "keywords": ["contact", "contacter", "email", "mail", "téléphone", "telephone", "appel", "joindre", "linkedin", "recrut", "échanger", "embaucher", "mobile", "mobil"],
     "reply": "Bien sûr — vous pouvez contacter Thibault directement :",
     "contactMode": true
   }
