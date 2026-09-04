@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thibault Hospital — IT & Solutions numériques</title>
+<style>
+:root{--bg:#07111d;--panel:#0d1b2a;--line:#234057;--txt:#edf6ff;--muted:#91a8bc;--accent:#55d6ff;--accent2:#7b8cff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 10%,#12304a 0,transparent 32%),radial-gradient(circle at 15% 60%,#10263a 0,transparent 28%),var(--bg);color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.5}a{color:inherit;text-decoration:none}
+header{position:fixed;top:0;width:100%;z-index:20;background:rgba(7,17,29,.72);backdrop-filter:blur(16px);border-bottom:1px solid rgba(120,180,220,.12)}
+.nav{max-width:1180px;margin:auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}.logo{font-weight:800;letter-spacing:.08em}.logo span{color:var(--accent)}nav a{margin-left:22px;color:var(--muted);font-size:.9rem}nav a:hover{color:var(--txt)}
+section{max-width:1180px;margin:auto;padding:110px 24px 50px}.hero{min-height:100vh;display:grid;grid-template-columns:1.25fr .75fr;gap:50px;align-items:center;padding-top:140px}.eyebrow{font-size:.78rem;letter-spacing:.2em;color:var(--accent);font-weight:700}.hero h1{font-size:clamp(3rem,7vw,6.8rem);line-height:.9;margin:18px 0}.hero h1 span{display:block;color:transparent;-webkit-text-stroke:1px #8da9bd}.hero h2{font-size:1.3rem;font-weight:500;color:#c9d8e5}.hero p{color:var(--muted);max-width:650px;font-size:1.05rem}.buttons{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}.btn{padding:13px 20px;border:1px solid var(--line);border-radius:4px}.btn.primary{background:linear-gradient(90deg,var(--accent),#79b9ff);color:#03101b;border:0;font-weight:800}.orb{height:390px;position:relative;border:1px solid rgba(85,214,255,.25);border-radius:24px;background:linear-gradient(145deg,rgba(23,53,76,.65),rgba(7,17,29,.35));overflow:hidden;box-shadow:0 0 80px rgba(55,190,255,.08) inset}.orb:before{content:"";position:absolute;width:230px;height:230px;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,#55d6ff 0,#2d7095 12%,transparent 65%);filter:blur(2px);animation:pulse 4s infinite}.orb:after{content:"";position:absolute;inset:35px;border:1px dashed rgba(85,214,255,.3);border-radius:50%;animation:spin 18s linear infinite}@keyframes pulse{50%{transform:translate(-50%,-50%) scale(1.13);opacity:.72}}@keyframes spin{to{transform:rotate(360deg)}}.status{position:absolute;bottom:20px;left:20px;font-size:.72rem;color:#8da9bd;letter-spacing:.12em}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#55d6ff;box-shadow:0 0 12px #55d6ff;margin-right:8px}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:30px}.section-title h2{font-size:2.3rem;margin:0}.section-title p{color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:linear-gradient(145deg,rgba(17,36,54,.9),rgba(9,23,36,.75));border:1px solid var(--line);padding:25px;min-height:220px;transition:.25s}.card:hover{transform:translateY(-5px);border-color:var(--accent)}.num{color:var(--accent);font-size:.72rem;letter-spacing:.15em}.card h3{margin:25px 0 8px}.card p{color:var(--muted);font-size:.92rem}
+.timeline{border-left:1px solid var(--line);padding-left:30px}.event{position:relative;margin:0 0 38px}.event:before{content:"";position:absolute;left:-36px;top:7px;width:10px;height:10px;border:2px solid var(--accent);background:var(--bg);border-radius:50%}.year{color:var(--accent);font-weight:800}.event h3{margin:4px 0}.event p{color:var(--muted);margin:4px 0}.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.tag{font-size:.72rem;padding:5px 8px;border:1px solid #29465d;color:#aac0d0}
+.matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.tech{padding:18px;border:1px solid var(--line);background:rgba(13,27,42,.7)}.tech strong{display:block;margin-bottom:8px}.tech span{color:var(--muted);font-size:.9rem}
+.lab{display:grid;grid-template-columns:1fr 1fr;gap:18px}.lab .card{min-height:170px}
+.quote{font-size:clamp(1.7rem,3.4vw,3rem);line-height:1.1;max-width:900px;margin:0 auto;text-align:center}.quote span{color:var(--accent)}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:30px}.contactbox{border:1px solid var(--line);padding:30px;background:rgba(13,27,42,.65)}.contactbox p{color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:28px 24px;text-align:center;color:#71899b;font-size:.8rem}
+@media(max-width:850px){nav{display:none}.hero,.contact,.lab{grid-template-columns:1fr}.orb{height:280px}.grid{grid-template-columns:1fr 1fr}.matrix{grid-template-columns:1fr 1fr}}@media(max-width:520px){section{padding-left:18px;padding-right:18px}.grid,.matrix{grid-template-columns:1fr}.hero h1{font-size:3.5rem}}
+
+/* ---------- Retour en haut ---------- */
+#totop{position:fixed;left:24px;bottom:24px;z-index:40;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(13,27,42,.85);backdrop-filter:blur(8px);color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease,border-color .25s ease}
+#totop.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+#totop:hover{border-color:var(--accent)}
+#totop svg{width:18px;height:18px}
+
+/* ---------- Assistant ---------- */
+#assistant-overlay{position:fixed;inset:0;background:rgba(4,10,17,.6);backdrop-filter:blur(3px);z-index:59;opacity:1;transition:opacity .5s ease;pointer-events:auto}
+#assistant-overlay.hidden{opacity:0;pointer-events:none}
+
+#assistant{position:fixed;z-index:60;background:linear-gradient(165deg,rgba(19,40,58,.97),rgba(9,19,31,.98));border:1px solid var(--line);border-radius:20px;box-shadow:0 30px 70px rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:scale(.94);transform-origin:center;transition:left .6s cubic-bezier(.22,.9,.3,1),top .6s cubic-bezier(.22,.9,.3,1),width .6s cubic-bezier(.22,.9,.3,1),height .6s cubic-bezier(.22,.9,.3,1),border-radius .5s ease,opacity .45s ease,transform .45s ease}
+#assistant.visible{opacity:1;transform:scale(1)}
+
+#assistant .ahead{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);flex:none}
+#assistant .aavatar{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--accent),#155275 70%);box-shadow:0 0 14px rgba(85,214,255,.5);flex:none;position:relative}
+#assistant .aavatar:after{content:"";position:absolute;right:-1px;bottom:-1px;width:9px;height:9px;border-radius:50%;background:#33e07a;border:2px solid #0d1b2a}
+#assistant .atitle{font-weight:700;font-size:.92rem}
+#assistant .asub{font-size:.72rem;color:var(--muted)}
+#assistant .amin{margin-left:auto;background:none;border:1px solid var(--line);color:var(--muted);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center}
+#assistant .amin:hover{color:var(--txt);border-color:var(--accent)}
+
+#assistant .abody{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+#assistant .abody::-webkit-scrollbar{width:6px}
+#assistant .abody::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+
+#assistant .msg{max-width:88%;font-size:.87rem;line-height:1.55;padding:11px 13px;border-radius:12px}
+#assistant .msg.bot{align-self:flex-start;background:rgba(85,214,255,.08);border:1px solid rgba(85,214,255,.18);border-bottom-left-radius:3px}
+#assistant .msg.user{align-self:flex-end;background:linear-gradient(90deg,var(--accent),#79b9ff);color:#03101b;font-weight:600;border-bottom-right-radius:3px}
+#assistant .msg .go{display:inline-flex;margin-top:9px;font-size:.76rem;font-weight:700;color:var(--accent);border:1px solid rgba(85,214,255,.35);padding:6px 10px;border-radius:8px;cursor:pointer;background:none}
+#assistant .msg .go:hover{background:rgba(85,214,255,.12)}
+
+#assistant .chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 18px 14px;flex:none}
+#assistant .chip{font-size:.74rem;padding:8px 11px;border-radius:20px;border:1px solid var(--line);color:var(--muted);background:rgba(13,27,42,.5);cursor:pointer;transition:.2s}
+#assistant .chip:hover{color:var(--txt);border-color:var(--accent)}
+
+#assistant .aform{display:flex;gap:8px;padding:14px 16px;border-top:1px solid var(--line);flex:none}
+#assistant .aform input{flex:1;background:rgba(4,10,17,.6);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:11px 13px;font-size:.85rem;font-family:inherit}
+#assistant .aform input:focus{outline:none;border-color:var(--accent)}
+#assistant .aform button{width:42px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),#79b9ff);color:#03101b;font-weight:800;cursor:pointer}
+
+#assistant-bubble{position:fixed;right:24px;bottom:24px;z-index:58;width:60px;height:60px;border-radius:50%;background:linear-gradient(165deg,#12304a,#0d1b2a);border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:scale(.7);transition:opacity .3s ease,transform .3s ease,border-color .2s ease}
+#assistant-bubble.show{opacity:1;pointer-events:auto;transform:scale(1)}
+#assistant-bubble:hover{border-color:var(--accent)}
+#assistant-bubble .dot2{position:absolute;top:6px;right:6px;width:10px;height:10px;border-radius:50%;background:#33e07a;box-shadow:0 0 8px #33e07a}
+
+@media(prefers-reduced-motion:reduce){#assistant{transition:opacity .3s ease}}
+
+@media(max-width:520px){
+  #assistant.docked{width:min(360px,94vw) !important;height:min(70vh,520px) !important}
+  #totop{left:16px;bottom:16px;width:42px;height:42px}
+  #assistant-bubble{right:16px;bottom:16px}
+}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">THIBAULT<span>.</span>HOSPITAL</div><nav><a href="#expertises">EXPERTISES</a><a href="#parcours">PARCOURS</a><a href="#technologies">TECH</a><a href="#lab">LAB</a><a href="#contact">CONTACT</a></nav></div></header>
+
+<section class="hero">
+<div>
+<div class="eyebrow">TECHNICAL PROFILE // 18+ YEARS EXPERIENCE</div>
+<h1>THIBAULT<br><span>HOSPITAL</span></h1>
+<h2>Technicien IT · Bureautique · Infrastructure</h2>
+<p>Une expérience terrain construite autour du support B2B, des environnements bureautiques, des réseaux et des infrastructures — avec une curiosité permanente pour les technologies de demain.</p>
+<div class="buttons"><a class="btn primary" href="#expertises">EXPLORER MON PARCOURS →</a><a class="btn" href="#contact">ME CONTACTER</a></div>
+</div>
+<div class="orb"><div class="status"><span class="dot"></span>SYSTEM ONLINE · TECH PROFILE</div></div>
+</section>
+
+<section id="expertises">
+<div class="section-title"><h2>01 / EXPERTISES</h2><p>Du matériel à l'environnement numérique.</p></div>
+<div class="grid">
+<div class="card"><div class="num">01 — DIGITAL WORKPLACE</div><h3>Postes & MFP</h3><p>Installation, configuration, maintenance et dépannage de postes, imprimantes, MFP et périphériques.</p></div>
+<div class="card"><div class="num">02 — INFRASTRUCTURE</div><h3>Réseaux & Systèmes</h3><p>Interventions sur serveurs, TCP/IP, routage, routeurs, pare-feu, Active Directory et environnements Linux.</p></div>
+<div class="card"><div class="num">03 — SUPPORT B2B</div><h3>Terrain & Services</h3><p>Diagnostic, support clients et techniciens, gestion de parc, interventions sur site ou à distance.</p></div>
+<div class="card"><div class="num">04 — DATA & AUTOMATION</div><h3>Évolution</h3><p>Développement, bases de données, automatisation, Python, IA et nouvelles technologies explorées dans une logique d'apprentissage continu.</p></div>
+</div>
+</section>
+
+<section id="parcours">
+<div class="section-title"><h2>02 / PARCOURS</h2><p>Une évolution technique sur plus de 20 ans.</p></div>
+<div class="timeline">
+<div class="event"><div class="year">1997</div><h3>Baccalauréat Technologique STI</h3><p>Lycée Joliot-Curie — Romilly-sur-Seine</p></div>
+<div class="event"><div class="year">2001</div><h3>DUT Analyste Programmeur appliqué à l'industrie</h3><p>AFPA — Rouen</p></div>
+<div class="event"><div class="year">2001 → 2004</div><h3>Chargé des techniques opérationnelles · Multilignes</h3><p>Applications sur mesure · maintenance · statistiques · bases de données · relation client · formation utilisateurs.</p></div>
+<div class="event"><div class="year">2008 → 2011</div><h3>Technicien bureautique · B.Contact développement</h3><p>Parc printers Toshiba, Konica Minolta et Canon · installation · maintenance · stock · atelier.</p></div>
+<div class="event"><div class="year">2012 → 2026</div><h3>Technicien informatique · Clipper Technologies</h3><p>MFP · PC · imprimantes · serveurs · routeurs · pare-feu · gestion de parc · support technique · référent techniciens.</p></div>
+</div>
+</section>
+
+<section id="technologies">
+<div class="section-title"><h2>03 / TECHNOLOGIES</h2><p>Une matrice de compétences construite sur le terrain.</p></div>
+<div class="matrix">
+<div class="tech"><strong>HARDWARE</strong><span>MFP · Printers · PC · Servers</span></div>
+<div class="tech"><strong>NETWORK</strong><span>TCP/IP · Routage IP · Routeurs · Pare-feu</span></div>
+<div class="tech"><strong>SYSTEMS</strong><span>Windows · Windows Server · Linux Debian · Active Directory</span></div>
+<div class="tech"><strong>REMOTE</strong><span>Remote Desktop · Support à distance</span></div>
+<div class="tech"><strong>DATA</strong><span>MySQL · Bases de données · Statistiques</span></div>
+<div class="tech"><strong>VIRTUALISATION</strong><span>Environnements virtualisés</span></div>
+</div>
+</section>
+
+<section id="lab">
+<div class="section-title"><h2>04 / THIBAULT LAB</h2><p>Explorer. Comprendre. Construire.</p></div>
+<div class="lab">
+<div class="card"><div class="num">LAB 01</div><h3>Linux & HomeLab</h3><p>Expérimentations autour de Linux, des serveurs, des réseaux et des services numériques.</p></div>
+<div class="card"><div class="num">LAB 02</div><h3>Python · Data · IA</h3><p>Découverte et approfondissement de Python, de l'analyse de données et des approches liées à l'intelligence artificielle.</p></div>
+<div class="card"><div class="num">LAB 03</div><h3>IoT · ESP32 · MQTT</h3><p>Exploration de systèmes connectés, capteurs, MQTT/MQTTS et supervision de données.</p></div>
+<div class="card"><div class="num">LAB 04</div><h3>Automation</h3><p>Recherche de solutions pour automatiser, fiabiliser et simplifier les tâches techniques.</p></div>
+</div>
+</section>
+
+<section>
+<p class="quote">« Comprendre <span>pourquoi</span> un problème survient, trouver sa cause et construire une solution fiable. »</p>
+</section>
+
+<section id="contact">
+<div class="section-title"><h2>05 / CONTACT</h2><p>Un projet, une opportunité, un échange technique ?</p></div>
+<div class="contact">
+<div class="contactbox"><h3>THIBAULT HOSPITAL</h3><p>Technicien informatique · bureautique · infrastructure</p><p>Disponible pour échanger autour d'une opportunité technique, d'un projet ou d'un environnement IT.</p></div>
+<div class="contactbox"><h3>LET'S CONNECT</h3><p><strong>Email</strong><br>Thibault.hospital@gmail.com</p><p><strong>Téléphone</strong><br>06 38 05 31 93</p><p><strong>LinkedIn</strong><br>Profil professionnel</p></div>
+</div>
+</section>
+
+<footer>THIBAULT HOSPITAL · TECHNICAL PROFILE · 2026</footer>
+
+<!-- Retour en haut -->
+<button id="totop" aria-label="Revenir en haut">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="6 11 12 5 18 11"></polyline></svg>
+</button>
+
+<!-- Assistant -->
+<div id="assistant-overlay"></div>
+<div id="assistant">
+  <div class="ahead">
+    <div class="aavatar"></div>
+    <div>
+      <div class="atitle">Assistant de Thibault</div>
+      <div class="asub">Répond en quelques secondes</div>
+    </div>
+    <button class="amin" id="amin" aria-label="Réduire">—</button>
+  </div>
+  <div class="abody" id="abody"></div>
+  <div class="chips" id="achips"></div>
+  <form class="aform" id="aform">
+    <input id="ainput" type="text" placeholder="Posez votre question…" autocomplete="off">
+    <button type="submit" aria-label="Envoyer">↵</button>
+  </form>
+</div>
+<button id="assistant-bubble" aria-label="Ouvrir l'assistant">
+  <span class="dot2"></span>
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#55d6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+</button>
+
+<script>
+/* ================= Retour en haut ================= */
+(function(){
+  const btn = document.getElementById('totop');
+  const onScroll = () => btn.classList.toggle('show', window.scrollY > window.innerHeight * 0.6);
+  document.addEventListener('scroll', onScroll, { passive:true });
+  btn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+  onScroll();
+})();
+
+
+/* ================= Base de connaissances ================= */
+
+/*
+const KB = {
+  profil: {
+    keywords: ["profil","présente","présenter","qui est","résume","résumé","pourquoi","recruter","atout","point fort","valeur ajoutée"],
+    reply: "Thibault est technicien informatique et bureautique, avec 18 ans d'expérience terrain sur les environnements bureautiques, réseaux et infrastructures. Son profil est hybride : support B2B, MFP/imprimantes, réseaux et bases de données — avec une vraie autonomie sur le terrain.",
+    goto: "expertises", label: "Voir ses expertises"
+  },
+  disponibilite: {
+    keywords: ["disponib","dispo","quand","immédiat","commencer","libre"],
+    reply: "Thibault a terminé sa dernière mission en juillet 2026 et est disponible immédiatement. Il est basé à Montmaur (05) et mobile sur les départements 04-05-13-38-06-83, ou à distance.",
+    goto: "contact", label: "Le contacter"
+  },
+  parcours_actuel: {
+    keywords: ["dernier poste","poste actuel","actuellement","clipper","emploi récent","dernière mission"],
+    reply: "Depuis 2012 (jusqu'à juillet 2026), Thibault était technicien informatique chez Clipper Technologies : interventions sur MFP, PC, imprimantes, serveurs, routeurs et pare-feu, gestion autonome de parc bureautique, et rôle de référent technique auprès des autres techniciens.",
+    goto: "parcours", label: "Voir le détail du poste"
+  },
+  parcours_bcontact: {
+    keywords: ["bcontact","b.contact","2008","2011","gap","briançon"],
+    reply: "De 2008 à 2011, Thibault était technicien bureautique chez B.Contact développement (Gap, Briançon) : gestion du parc d'imprimantes multifonctions Toshiba, Konica Minolta et Canon, installation, maintenance, gestion des stocks et dépannage atelier.",
+    goto: "parcours", label: "Voir le parcours complet"
+  },
+  parcours_multilignes: {
+    keywords: ["multilignes","2001","2004","développement","applications sur mesure","paris"],
+    reply: "De 2001 à 2004, chez Multilignes (Paris), Thibault développait des applications sur-mesure, assurait leur maintenance, analysait des statistiques opérationnelles, gérait la relation client et formait les utilisateurs aux outils.",
+    goto: "parcours", label: "Voir le parcours complet"
+  },
+  reseaux: {
+    keywords: ["réseau","tcp/ip","tcpip","routage","routeur","pare-feu","firewall","active directory","ad "],
+    reply: "Côté réseaux, Thibault intervient sur TCP/IP, le routage IP, les routeurs et pare-feu, ainsi que sur Active Directory. Ces compétences se sont construites sur le terrain, en environnement PME.",
+    goto: "technologies", label: "Voir la matrice technique"
+  },
+  systemes: {
+    keywords: ["windows","linux","debian","serveur","virtualisation","système","systeme"],
+    reply: "Sur les systèmes, Thibault travaille sur Windows client et Windows Server, ainsi que sur Linux Debian et des environnements virtualisés.",
+    goto: "technologies", label: "Voir la matrice technique"
+  },
+  remote: {
+    keywords: ["distance","remote","télémaintenance","hotline","support à distance"],
+    reply: "Thibault peut intervenir à distance : prise en main des postes, support et diagnostic à distance, en complément des interventions terrain.",
+    goto: "technologies", label: "Voir la matrice technique"
+  },
+  mfp_general: {
+    keywords: ["mfp","copieur","copieurs","imprimante","imprimantes","multifonction"],
+    reply: "Thibault a une solide expérience MFP et imprimantes multi-marques : installation, configuration, maintenance et dépannage, acquise chez Clipper Technologies et B.Contact développement.",
+    goto: "expertises", label: "Voir cette expertise"
+  },
+  constructeur_toshiba: { keywords:["toshiba"], reply:"Oui, Thibault a une expérience confirmée sur le parc Toshiba (installation, maintenance, dépannage), acquise chez B.Contact développement.", goto:"parcours", label:"Voir l'expérience concernée" },
+  constructeur_km: { keywords:["konica","minolta","km "], reply:"Oui, Thibault a une expérience confirmée sur les gammes Konica Minolta, notamment sur la maintenance et le dépannage atelier.", goto:"parcours", label:"Voir l'expérience concernée" },
+  constructeur_canon: { keywords:["canon"], reply:"Oui, Thibault a une expérience confirmée sur le matériel Canon, dans le cadre de la gestion de parc chez B.Contact développement.", goto:"parcours", label:"Voir l'expérience concernée" },
+  constructeur_autre: {
+    keywords: ["kyocera","ricoh","sharp","xerox","lexmark","hp ","brother","epson"],
+    reply: "Cette marque précise n'est pas détaillée dans le CV actuel. Thibault a une expérience confirmée sur Toshiba, Konica Minolta et Canon, ainsi qu'une pratique généraliste MFP/imprimantes sur l'ensemble de sa carrière — il s'adapte rapidement à un nouveau constructeur.",
+    goto: "expertises", label: "Voir son profil MFP"
+  },
+  data: {
+    keywords: ["données","donnees","base de données","mysql","sql","statistiques","développement","python","ia","intelligence artificielle","automatisation"],
+    reply: "Thibault a une expérience en développement d'applications sur-mesure et bases de données (chez Multilignes), et explore aujourd'hui Python, l'analyse de données et l'IA dans une logique d'apprentissage continu — voir la section Lab.",
+    goto: "lab", label: "Voir le Lab"
+  },
+  formation: {
+    keywords: ["formation","diplôme","diplome","dut","bac","étude","etudes","école"],
+    reply: "Thibault est titulaire d'un DUT analyste programmeur appliqué à l'industrie (AFPA, Rouen, 2001) et d'un Baccalauréat Technologique STI (Lycée Joliot-Curie, Romilly-sur-Seine, 1997).",
+    goto: "parcours", label: "Voir le parcours"
+  },
+  contact: {
+    keywords: ["contact","contacter","email","mail","téléphone","telephone","appel","joindre","linkedin","recrut","échanger","embaucher"],
+    reply: "Bien sûr — vous pouvez contacter Thibault directement :",
+    contactMode: true
+  }
+};
+*/
+
+
+
+
+// chargement asynchrone de la base de connaissances JSON knowledge
+let KB = {};
+
+async function loadKB(){
+  const fichiers = ['profil','parcours','competences','constructeurs','disponibilite'];
+  const morceaux = await Promise.all(
+    fichiers.map(f => fetch(`knowledge/${f}.json`).then(r => r.json()))
+  );
+  morceaux.forEach(part => Object.assign(KB, part));
+}
+
+
+const FALLBACK = "Cette information n'apparaît pas dans le CV actuellement présenté. En revanche, je peux vous renseigner sur son parcours, ses compétences techniques, les constructeurs MFP qu'il maîtrise, ou sa disponibilité.";
+
+function normalize(s){
+  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+
+function matchTopic(text){
+  const t = normalize(text);
+  let best = null, bestScore = 0;
+  for(const key in KB){
+    const topic = KB[key];
+    let score = 0;
+    for(const kw of topic.keywords){
+      if(t.includes(normalize(kw))) score += kw.length; // favor longer/more specific matches
+    }
+    if(score > bestScore){ bestScore = score; best = topic; }
+  }
+  return bestScore > 0 ? best : null;
+}
+
+/* ================= Moteur de chat ================= */
+const abody = document.getElementById('abody');
+const achips = document.getElementById('achips');
+const aform = document.getElementById('aform');
+const ainput = document.getElementById('ainput');
+
+const SUGGESTIONS = [
+  { label:"💼 Son parcours", q:"Quel est son parcours ?" },
+  { label:"🖨 Les MFP maîtrisés", q:"Quels MFP maîtrise-t-il ?" },
+  { label:"🌐 Compétences réseau", q:"A-t-il des compétences réseau ?" },
+  { label:"📅 Sa disponibilité", q:"Quelle est sa disponibilité ?" },
+  { label:"✉️ Le contacter", q:"Comment le contacter ?" }
+];
+
+function addMessage(html, who){
+  const div = document.createElement('div');
+  div.className = 'msg ' + who;
+  div.innerHTML = html;
+  abody.appendChild(div);
+  abody.scrollTop = abody.scrollHeight;
+  return div;
+}
+
+function renderChips(){
+  achips.innerHTML = "";
+  SUGGESTIONS.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.textContent = s.label;
+    b.addEventListener('click', () => handleUserInput(s.q));
+    achips.appendChild(b);
+  });
+}
+
+function contactActions(){
+  return `<div style="display:flex;flex-direction:column;gap:7px;margin-top:9px">
+    <a class="go" href="mailto:Thibault.hospital@gmail.com" style="text-align:left">✉️ Thibault.hospital@gmail.com</a>
+    <a class="go" href="tel:0638053193" style="text-align:left">📞 06 38 05 31 93</a>
+    <button class="go" data-goto="contact">↓ Voir la section contact</button>
+  </div>`;
+}
+
+function handleUserInput(text){
+  if(!text || !text.trim()) return;
+  addMessage(text, 'user');
+  const topic = matchTopic(text);
+  setTimeout(() => {
+    if(topic){
+      if(topic.contactMode){
+        addMessage(topic.reply + contactActions(), 'bot');
+      } else {
+        const gotoBtn = topic.goto ? `<button class="go" data-goto="${topic.goto}">↓ ${topic.label}</button>` : "";
+        addMessage(topic.reply + gotoBtn, 'bot');
+      }
+    } else {
+      addMessage(FALLBACK, 'bot');
+    }
+  }, 380);
+}
+
+aform.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const v = ainput.value;
+  ainput.value = "";
+  handleUserInput(v);
+});
+
+abody.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-goto]');
+  if(btn){
+    const el = document.getElementById(btn.dataset.goto);
+    if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+    dockAssistant();
+  }
+});
+
+/* ================= Ouverture / animation de l'assistant ================= */
+const assistant = document.getElementById('assistant');
+const overlay = document.getElementById('assistant-overlay');
+const bubble = document.getElementById('assistant-bubble');
+const amin = document.getElementById('amin');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function layoutIntro(){
+  const w = Math.min(480, window.innerWidth * 0.92);
+  const h = Math.min(520, window.innerHeight * 0.78);
+  assistant.style.width = w + 'px';
+  assistant.style.height = h + 'px';
+  assistant.style.left = ((window.innerWidth - w) / 2) + 'px';
+  assistant.style.top = ((window.innerHeight - h) / 2) + 'px';
+  assistant.style.borderRadius = '20px';
+}
+
+function layoutDocked(){
+  const w = Math.min(340, window.innerWidth * 0.92);
+  const h = Math.min(480, window.innerHeight * 0.72);
+  assistant.style.width = w + 'px';
+  assistant.style.height = h + 'px';
+  assistant.style.left = (window.innerWidth - w - 24) + 'px';
+  assistant.style.top = (window.innerHeight - h - 24) + 'px';
+  assistant.style.borderRadius = '16px';
+  assistant.classList.add('docked');
+}
+
+function dockAssistant(){
+  overlay.classList.add('hidden');
+  layoutDocked();
+}
+
+function minimizeAssistant(){
+  assistant.style.display = 'none';
+  bubble.classList.add('show');
+}
+
+amin.addEventListener('click', minimizeAssistant);
+bubble.addEventListener('click', () => {
+  assistant.style.display = 'flex';
+  layoutDocked();
+  bubble.classList.remove('show');
+});
+
+window.addEventListener('resize', () => {
+  if(assistant.classList.contains('docked')) layoutDocked();
+});
+
+/* Séquence d'ouverture au chargement */
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    await loadKB();
+  } catch (err) {
+    console.error("Chargement de knowledge/*.json impossible :", err);
+  }
+  layoutIntro();
+  requestAnimationFrame(() => requestAnimationFrame(() => assistant.classList.add('visible')));
+  renderChips();
+  addMessage("Bonjour 👋 Je suis l'assistant virtuel de Thibault. Je peux vous présenter son parcours, ses compétences techniques, les constructeurs MFP qu'il maîtrise, ou sa disponibilité.<br><br>Vous pouvez aussi me demander directement comment le contacter." +
+    `<button class="go" id="introContinue" style="margin-top:11px">Continuer →</button>`, 'bot');
+
+
+
+    // mets la fenetre chatbot en bas sans la fermer
+    /*
+  const closeIntro = () => {
+    overlay.classList.add('hidden');
+    layoutDocked();
+  };
+  document.getElementById('assistant-overlay').addEventListener('click', closeIntro);
+  document.getElementById('introContinue').addEventListener('click', closeIntro);
+
+  const introTimer = setTimeout(closeIntro, reduceMotion ? 0 : 3000);
+
+  // Referme l'intro dès la première interaction
+  aform.addEventListener('submit', () => clearTimeout(introTimer), { once:true });
+  achips.addEventListener('click', () => clearTimeout(introTimer), { once:true });
+*/
+
+
+// ferme la petite fenetre en bulle
+const closeIntro = () => {
+    overlay.classList.add('hidden');
+    layoutDocked();
+};
+document.getElementById('assistant-overlay').addEventListener('click', closeIntro);
+document.getElementById('introContinue').addEventListener('click', closeIntro);
+
+// Si personne n'a interagi après 7s → on range en bulle plutôt que d'ouvrir le chat
+const introTimer = setTimeout(() => {
+    overlay.classList.add('hidden');
+    minimizeAssistant();
+}, reduceMotion ? 0 : 5000);
+
+// Si l'utilisateur clique/tape avant les 7s, on annule le passage auto en bulle
+aform.addEventListener('submit', () => clearTimeout(introTimer), { once:true });
+achips.addEventListener('click', () => clearTimeout(introTimer), { once:true });
+
+});
+</script>
+</body>
+</html>
