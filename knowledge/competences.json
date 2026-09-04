@@ -18,8 +18,8 @@
     "label": "Voir la matrice technique"
   },
   "mfp_general": {
-    "keywords": ["mfp", "copieur", "copieurs", "photocopieuse", "imprimante", "imprimantes", "multifonction", "scanner"],
-    "reply": "Thibault a une solide expérience MFP et imprimantes multi-marques : installation, configuration, maintenance et dépannage, acquise chez Clipper Technologies et B.Contact développement.",
+    "keywords": ["mfp", "copieur", "copieurs", "photocopieuse", "imprimante", "imprimantes", "multifonction", "scanner", "impression"],
+    "reply": "Thibault a une solide expérience MFP et imprimantes multi-marques : installation, configuration, maintenance et dépannage, acquise chez Clipper Technologies, NATIS SAS, Rex Rotary et B.Contact développement.",
     "goto": "expertises",
     "label": "Voir cette expertise"
   },
