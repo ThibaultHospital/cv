@@ -463,7 +463,7 @@ document.getElementById('introContinue').addEventListener('click', closeIntro);
 const introTimer = setTimeout(() => {
     overlay.classList.add('hidden');
     minimizeAssistant();
-}, reduceMotion ? 0 : 4000);
+}, reduceMotion ? 0 : 3000);
 
 // Si l'utilisateur clique/tape avant les 7s, on annule le passage auto en bulle
 aform.addEventListener('submit', () => clearTimeout(introTimer), { once:true });
