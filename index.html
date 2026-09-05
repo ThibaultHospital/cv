@@ -443,7 +443,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('assistant-overlay').addEventListener('click', closeIntro);
   document.getElementById('introContinue').addEventListener('click', closeIntro);
 
-  const introTimer = setTimeout(closeIntro, reduceMotion ? 0 : 3000);
+  const introTimer = setTimeout(closeIntro, reduceMotion ? 0 : 2000);
 
   // Referme l'intro dès la première interaction
   aform.addEventListener('submit', () => clearTimeout(introTimer), { once:true });
