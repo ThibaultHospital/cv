@@ -6,19 +6,84 @@
 <title>Thibault Hospital — IT & Solutions numériques</title>
 <style>
 :root{--bg:#07111d;--panel:#0d1b2a;--line:#234057;--txt:#edf6ff;--muted:#91a8bc;--accent:#55d6ff;--accent2:#7b8cff}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 10%,#12304a 0,transparent 32%),radial-gradient(circle at 15% 60%,#10263a 0,transparent 28%),var(--bg);color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.5}a{color:inherit;text-decoration:none}
-header{position:fixed;top:0;width:100%;z-index:20;background:rgba(7,17,29,.72);backdrop-filter:blur(16px);border-bottom:1px solid rgba(120,180,220,.12)}
-.nav{max-width:1180px;margin:auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}.logo{font-weight:800;letter-spacing:.08em}.logo span{color:var(--accent)}nav a{margin-left:22px;color:var(--muted);font-size:.9rem}nav a:hover{color:var(--txt)}
-section{max-width:1180px;margin:auto;padding:110px 24px 50px}.hero{min-height:100vh;display:grid;grid-template-columns:1.25fr .75fr;gap:50px;align-items:center;padding-top:140px}.eyebrow{font-size:.78rem;letter-spacing:.2em;color:var(--accent);font-weight:700}.hero h1{font-size:clamp(3rem,7vw,6.8rem);line-height:.9;margin:18px 0}.hero h1 span{display:block;color:transparent;-webkit-text-stroke:1px #8da9bd}.hero h2{font-size:1.3rem;font-weight:500;color:#c9d8e5}.hero p{color:var(--muted);max-width:650px;font-size:1.05rem}.buttons{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}.btn{padding:13px 20px;border:1px solid var(--line);border-radius:4px}.btn.primary{background:linear-gradient(90deg,var(--accent),#79b9ff);color:#03101b;border:0;font-weight:800}.orb{height:390px;position:relative;border:1px solid rgba(85,214,255,.25);border-radius:24px;background:linear-gradient(145deg,rgba(23,53,76,.65),rgba(7,17,29,.35));overflow:hidden;box-shadow:0 0 80px rgba(55,190,255,.08) inset}.orb:before{content:"";position:absolute;width:230px;height:230px;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,#55d6ff 0,#2d7095 12%,transparent 65%);filter:blur(2px);animation:pulse 4s infinite}.orb:after{content:"";position:absolute;inset:35px;border:1px dashed rgba(85,214,255,.3);border-radius:50%;animation:spin 18s linear infinite}@keyframes pulse{50%{transform:translate(-50%,-50%) scale(1.13);opacity:.72}}@keyframes spin{to{transform:rotate(360deg)}}.status{position:absolute;bottom:20px;left:20px;font-size:.72rem;color:#8da9bd;letter-spacing:.12em}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#55d6ff;box-shadow:0 0 12px #55d6ff;margin-right:8px}
-.section-title{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:30px}.section-title h2{font-size:2.3rem;margin:0}.section-title p{color:var(--muted);margin:0}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:linear-gradient(145deg,rgba(17,36,54,.9),rgba(9,23,36,.75));border:1px solid var(--line);padding:25px;min-height:220px;transition:.25s}.card:hover{transform:translateY(-5px);border-color:var(--accent)}.num{color:var(--accent);font-size:.72rem;letter-spacing:.15em}.card h3{margin:25px 0 8px}.card p{color:var(--muted);font-size:.92rem}
+[data-theme="light"]{--bg:#f3f7fb;--panel:#ffffff;--line:#d7e2ea;--txt:#0c1e2d;--muted:#4f6577;--accent:#0f8fc7;--accent2:#5b6bcf}
+[data-theme="light"] body{background:radial-gradient(circle at 80% 10%,#dbeefb 0,transparent 32%),radial-gradient(circle at 15% 60%,#e6f2f8 0,transparent 28%),var(--bg)}
+[data-theme="light"] header{background:rgba(243,247,251,.78)}
+[data-theme="light"] .btn.primary{color:#fff}
+[data-theme="light"] .hero h1 span{-webkit-text-stroke-color:#8fa6b8}
+[data-theme="light"] .status{color:#5c7285}
+[data-theme="light"] .tag{border-color:#c9d8e2;color:#42586a}
+[data-theme="light"] #assistant,[data-theme="light"] #assistant-bubble{background:linear-gradient(165deg,#ffffff,#eaf2f8)}
+[data-theme="light"] #assistant .msg.bot{background:rgba(15,143,199,.08);border-color:rgba(15,143,199,.2)}
+[data-theme="light"] #assistant-overlay{background:rgba(180,200,215,.45)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 10%,#12304a 0,transparent 32%),radial-gradient(circle at 15% 60%,#10263a 0,transparent 28%),var(--bg);color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.5;transition:background .3s ease,color .3s ease}a{color:inherit;text-decoration:none}
+header{position:fixed;top:0;width:100%;z-index:20;background:rgba(7,17,29,.72);backdrop-filter:blur(16px);border-bottom:1px solid rgba(120,180,220,.12);transition:background .3s ease}
+.nav{position:relative;max-width:1180px;margin:auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}.navleft{display:flex;align-items:center;gap:14px}.logo{font-weight:800;letter-spacing:.08em}.logo span{color:var(--accent)}nav a{margin-left:22px;color:var(--muted);font-size:.9rem}nav a:hover{color:var(--txt)}
+.theme-toggle{flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--accent);cursor:pointer;transition:border-color .2s ease}
+.theme-toggle:hover{border-color:var(--accent)}
+.theme-toggle svg{width:17px;height:17px}
+.theme-toggle .icon-moon{display:none}
+[data-theme="light"] .theme-toggle .icon-sun{display:none}
+[data-theme="light"] .theme-toggle .icon-moon{display:block}
+.cv-download{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin-left:22px;border:1px solid var(--line);border-radius:50%;color:var(--accent);transition:border-color .2s ease,background .2s ease}
+.cv-download:hover{border-color:var(--accent);background:rgba(85,214,255,.1)}
+.cv-download svg{width:16px;height:16px}
+.cv-label-mobile{display:none}
+.menu-toggle{display:none;flex:none;width:38px;height:38px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:8px;background:none;color:var(--txt);cursor:pointer}
+.menu-toggle svg{width:20px;height:20px}
+.menu-toggle .icon-close{display:none}
+.menu-toggle[aria-expanded="true"] .icon-burger{display:none}
+.menu-toggle[aria-expanded="true"] .icon-close{display:block}
+section{max-width:1180px;margin:auto;padding:110px 24px 50px}.hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;padding-top:140px}.eyebrow{font-size:.78rem;letter-spacing:.2em;color:var(--accent);font-weight:700}.hero h1{font-size:clamp(3rem,7vw,6.8rem);line-height:.9;margin:18px 0}.hero h1 span{display:block;color:transparent;-webkit-text-stroke:1px #8da9bd}.hero h2{font-size:1.3rem;font-weight:500;color:#c9d8e5}.hero p{color:var(--muted);max-width:650px;font-size:1.05rem}.buttons{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}.btn{padding:13px 20px;border:1px solid var(--line);border-radius:4px}.btn.primary{background:linear-gradient(90deg,var(--accent),#79b9ff);color:#03101b;border:0;font-weight:800}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:30px;flex-wrap:wrap}.section-title h2{font-size:clamp(1.3rem,4.2vw,2.3rem);margin:0}.section-title p{color:var(--muted);margin:0;font-size:clamp(.82rem,2.6vw,1rem)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}.card{position:relative;background:linear-gradient(145deg,rgba(17,36,54,.9),rgba(9,23,36,.75));border:1px solid var(--line);padding:25px;padding-bottom:56px;min-height:220px;transition:.25s}.card:hover{transform:translateY(-5px);border-color:var(--accent)}.num{color:var(--accent);font-size:.72rem;letter-spacing:.15em}.card h3{margin:25px 0 8px}.card p{color:var(--muted);font-size:.92rem}
 .timeline{border-left:1px solid var(--line);padding-left:30px}.event{position:relative;margin:0 0 38px}.event:before{content:"";position:absolute;left:-36px;top:7px;width:10px;height:10px;border:2px solid var(--accent);background:var(--bg);border-radius:50%}.year{color:var(--accent);font-weight:800}.event h3{margin:4px 0}.event p{color:var(--muted);margin:4px 0}.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.tag{font-size:.72rem;padding:5px 8px;border:1px solid #29465d;color:#aac0d0}
-.matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.tech{padding:18px;border:1px solid var(--line);background:rgba(13,27,42,.7)}.tech strong{display:block;margin-bottom:8px}.tech span{color:var(--muted);font-size:.9rem}
-.lab{display:grid;grid-template-columns:1fr 1fr;gap:18px}.lab .card{min-height:170px}
+.matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:start}.tech{position:relative;padding:18px;padding-bottom:50px;border:1px solid var(--line);background:rgba(13,27,42,.7)}.tech strong{display:block;margin-bottom:8px}.tech span{color:var(--muted);font-size:.9rem}
+.lab{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}.lab .card{min-height:170px}
 .quote{font-size:clamp(1.7rem,3.4vw,3rem);line-height:1.1;max-width:900px;margin:0 auto;text-align:center}.quote span{color:var(--accent)}
-.contact{display:grid;grid-template-columns:1fr 1fr;gap:30px}.contactbox{border:1px solid var(--line);padding:30px;background:rgba(13,27,42,.65)}.contactbox p{color:var(--muted)}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:30px}.contactbox{border:1px solid var(--line);padding:30px;background:rgba(13,27,42,.65)}.contactbox p{color:var(--muted)}.contactbox a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s ease}.contactbox a:hover{border-bottom-color:var(--accent)}
 footer{border-top:1px solid var(--line);padding:28px 24px;text-align:center;color:#71899b;font-size:.8rem}
-@media(max-width:850px){nav{display:none}.hero,.contact,.lab{grid-template-columns:1fr}.orb{height:280px}.grid{grid-template-columns:1fr 1fr}.matrix{grid-template-columns:1fr 1fr}}@media(max-width:520px){section{padding-left:18px;padding-right:18px}.grid,.matrix{grid-template-columns:1fr}.hero h1{font-size:3.5rem}}
+
+/* ---------- Lisibilité mode clair ---------- */
+[data-theme="light"] .card{background:linear-gradient(145deg,#ffffff,#eef4f9)}
+[data-theme="light"] .tech{background:#ffffff}
+[data-theme="light"] .contactbox{background:#ffffff}
+[data-theme="light"] .card:hover{border-color:var(--accent)}
+
+/* ---------- Flèche d'ouverture des cards / tech ---------- */
+.card-arrow,.tech-arrow{position:absolute;right:14px;bottom:14px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:rgba(85,214,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .3s ease,border-color .2s ease,background .2s ease;color:var(--accent);flex:none}
+.card-arrow:hover,.tech-arrow:hover{border-color:var(--accent);background:rgba(85,214,255,.15)}
+.card-arrow svg,.tech-arrow svg{width:14px;height:14px;transition:transform .3s ease}
+.card.open .card-arrow,.tech.open .tech-arrow{transform:rotate(90deg)}
+.card-more,.tech-more{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .3s ease,margin-top .3s ease}
+.card.open .card-more,.tech.open .tech-more{max-height:420px;opacity:1;margin-top:14px}
+.card-more ul,.tech-more ul{margin:0;padding-left:18px;color:var(--muted);font-size:.85rem;list-style:disc}
+.card-more li,.tech-more li{margin-bottom:6px}
+.card-more{border-top:1px solid var(--line);padding-top:12px}
+.tech-more{border-top:1px solid var(--line);padding-top:10px}
+@media(max-width:850px){
+  .menu-toggle{display:flex}
+  header nav{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    flex-direction:column;
+    background:rgba(7,17,29,.97);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+    padding:6px 24px 18px;
+  }
+  [data-theme="light"] header nav{background:rgba(243,247,251,.97)}
+  header nav.open{display:flex}
+  header nav a{margin-left:0;padding:13px 0;font-size:1rem;border-bottom:1px solid rgba(120,180,220,.1)}
+  header nav a.cv-download{display:flex;align-items:center;gap:10px;width:auto;height:auto;border-radius:0;border:0;border-bottom:1px solid rgba(120,180,220,.1);margin:0;padding:13px 0}
+  header nav a.cv-download svg{width:16px;height:16px}
+  header nav a.cv-download .cv-label-mobile{display:inline}
+  .hero,.contact,.lab{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.matrix{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){section{padding-left:18px;padding-right:18px}.grid,.matrix{grid-template-columns:1fr}.hero h1{font-size:3.5rem}}
 
 /* ---------- Retour en haut ---------- */
 #totop{position:fixed;left:24px;bottom:24px;z-index:40;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(13,27,42,.85);backdrop-filter:blur(8px);color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease,border-color .25s ease}
@@ -51,14 +116,18 @@ footer{border-top:1px solid var(--line);padding:28px 24px;text-align:center;colo
 #assistant .msg .go{display:inline-flex;margin-top:9px;font-size:.76rem;font-weight:700;color:var(--accent);border:1px solid rgba(85,214,255,.35);padding:6px 10px;border-radius:8px;cursor:pointer;background:none}
 #assistant .msg .go:hover{background:rgba(85,214,255,.12)}
 
-#assistant .chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 18px 14px;flex:none}
-#assistant .chip{font-size:.74rem;padding:8px 11px;border-radius:20px;border:1px solid var(--line);color:var(--muted);background:rgba(13,27,42,.5);cursor:pointer;transition:.2s}
+#assistant .chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 18px 12px;flex:none}
+#assistant .chip{font-size:.68rem;padding:6px 9px;border-radius:16px;border:1px solid var(--line);color:var(--muted);background:rgba(13,27,42,.5);cursor:pointer;transition:.2s}
 #assistant .chip:hover{color:var(--txt);border-color:var(--accent)}
+[data-theme="light"] #assistant .chip{background:rgba(15,143,199,.08);color:#3d5266}
+[data-theme="light"] #assistant .chip:hover{color:var(--txt);border-color:var(--accent);background:rgba(15,143,199,.16)}
 
 #assistant .aform{display:flex;gap:8px;padding:14px 16px;border-top:1px solid var(--line);flex:none}
 #assistant .aform input{flex:1;background:rgba(4,10,17,.6);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:11px 13px;font-size:.85rem;font-family:inherit}
+#assistant .aform input::placeholder{color:var(--muted);opacity:1}
 #assistant .aform input:focus{outline:none;border-color:var(--accent)}
 #assistant .aform button{width:42px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),#79b9ff);color:#03101b;font-weight:800;cursor:pointer}
+[data-theme="light"] #assistant .aform input{background:#eef4f9;color:var(--txt)}
 
 #assistant-bubble{position:fixed;right:24px;bottom:24px;z-index:58;width:60px;height:60px;border-radius:50%;background:linear-gradient(165deg,#12304a,#0d1b2a);border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:scale(.7);transition:opacity .3s ease,transform .3s ease,border-color .2s ease}
 #assistant-bubble.show{opacity:1;pointer-events:auto;transform:scale(1)}
@@ -75,7 +144,32 @@ footer{border-top:1px solid var(--line);padding:28px 24px;text-align:center;colo
 </style>
 </head>
 <body>
-<header><div class="nav"><div class="logo">THIBAULT<span>.</span>HOSPITAL</div><nav><a href="#expertises">EXPERTISES</a><a href="#parcours">PARCOURS</a><a href="#technologies">TECH</a><a href="#lab">LAB</a><a href="#contact">CONTACT</a></nav></div></header>
+<header>
+<div class="nav">
+  <div class="navleft">
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Basculer en mode clair" title="Changer de thème">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </button>
+    <div class="logo">THIBAULT<span>.</span>HOSPITAL</div>
+  </div>
+  <nav id="main-nav">
+    <a href="#expertises">EXPERTISES</a>
+    <a href="#parcours">PARCOURS</a>
+    <a href="#technologies">TECH</a>
+    <a href="#lab">LAB</a>
+    <a href="#contact">CONTACT</a>
+    <a class="cv-download" href="CV-Thibault-Hospital.pdf" download aria-label="Télécharger le CV" title="Télécharger le CV">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><polyline points="7 11 12 16 17 11"></polyline><path d="M5 19h14"></path></svg>
+      <span class="cv-label-mobile">TÉLÉCHARGER LE CV</span>
+    </a>
+  </nav>
+  <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+    <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+</div>
+</header>
 
 <section class="hero">
 <div>
@@ -85,49 +179,150 @@ footer{border-top:1px solid var(--line);padding:28px 24px;text-align:center;colo
 <p>Une expérience terrain construite autour du support B2B, des environnements bureautiques, des réseaux et des infrastructures — avec une curiosité permanente pour les technologies de demain.</p>
 <div class="buttons"><a class="btn primary" href="#expertises">EXPLORER MON PARCOURS →</a><a class="btn" href="#contact">ME CONTACTER</a></div>
 </div>
-<div class="orb"><div class="status"><span class="dot"></span>SYSTEM ONLINE · TECH PROFILE</div></div>
 </section>
 
 <section id="expertises">
 <div class="section-title"><h2>01 / EXPERTISES</h2><p>Du matériel à l'environnement numérique.</p></div>
 <div class="grid">
-<div class="card"><div class="num">01 — DIGITAL WORKPLACE</div><h3>Postes & MFP</h3><p>Installation, configuration, maintenance et dépannage de postes, imprimantes, MFP et périphériques.</p></div>
-<div class="card"><div class="num">02 — INFRASTRUCTURE</div><h3>Réseaux & Systèmes</h3><p>Interventions sur serveurs, TCP/IP, routage, routeurs, pare-feu, Active Directory et environnements Linux.</p></div>
-<div class="card"><div class="num">03 — SUPPORT B2B</div><h3>Terrain & Services</h3><p>Diagnostic, support clients et techniciens, gestion de parc, interventions sur site ou à distance.</p></div>
-<div class="card"><div class="num">04 — DATA & AUTOMATION</div><h3>Évolution</h3><p>Développement, bases de données, automatisation, Python, IA et nouvelles technologies explorées dans une logique d'apprentissage continu.</p></div>
+<div class="card"><div class="num">01 — DIGITAL WORKPLACE</div><h3>Postes & MFP</h3><p>Installation, configuration, maintenance et dépannage de postes, imprimantes, MFP et périphériques.</p>
+  <div class="card-more"><ul>
+    <li>Parc constructeurs maîtrisé : Toshiba, Konica Minolta, Canon</li>
+    <li>Installation et configuration de postes de travail Windows</li>
+    <li>Gestion des consommables et du stock atelier</li>
+    <li>Support utilisateurs de premier et second niveau</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">02 — INFRASTRUCTURE</div><h3>Réseaux & Systèmes</h3><p>Interventions sur serveurs, TCP/IP, routage, routeurs, pare-feu, Active Directory et environnements Linux.</p>
+  <div class="card-more"><ul>
+    <li>Configuration et supervision de pare-feu et routeurs</li>
+    <li>Gestion des comptes et stratégies Active Directory</li>
+    <li>Administration d'environnements Linux Debian</li>
+    <li>Mise en place d'environnements virtualisés</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">03 — SUPPORT B2B</div><h3>Terrain & Services</h3><p>Diagnostic, support clients et techniciens, gestion de parc, interventions sur site ou à distance.</p>
+  <div class="card-more"><ul>
+    <li>Interventions sur site et télémaintenance</li>
+    <li>Diagnostic et résolution d'incidents matériels/logiciels</li>
+    <li>Gestion de parc informatique multi-sites</li>
+    <li>Rôle de référent technique auprès des équipes</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">04 — DATA & AUTOMATION</div><h3>Évolution</h3><p>Développement, bases de données, automatisation, Python, IA et nouvelles technologies explorées dans une logique d'apprentissage continu.</p>
+  <div class="card-more"><ul>
+    <li>Développement d'applications sur-mesure</li>
+    <li>Bases de données MySQL, requêtes et statistiques</li>
+    <li>Découverte de Python appliqué à l'automatisation</li>
+    <li>Veille active sur les usages de l'intelligence artificielle</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
 </div>
 </section>
 
 <section id="parcours">
 <div class="section-title"><h2>02 / PARCOURS</h2><p>Une évolution technique sur plus de 20 ans.</p></div>
 <div class="timeline">
-<div class="event"><div class="year">1997</div><h3>Baccalauréat Technologique STI</h3><p>Lycée Joliot-Curie — Romilly-sur-Seine</p></div>
-<div class="event"><div class="year">2001</div><h3>DUT Analyste Programmeur appliqué à l'industrie</h3><p>AFPA — Rouen</p></div>
-<div class="event"><div class="year">2001 → 2004</div><h3>Chargé des techniques opérationnelles · Multilignes</h3><p>Applications sur mesure · maintenance · statistiques · bases de données · relation client · formation utilisateurs.</p></div>
-<div class="event"><div class="year">2008 → 2011</div><h3>Technicien bureautique · B.Contact développement</h3><p>Parc printers Toshiba, Konica Minolta et Canon · installation · maintenance · stock · atelier.</p></div>
 <div class="event"><div class="year">2012 → 2026</div><h3>Technicien informatique · Clipper Technologies</h3><p>MFP · PC · imprimantes · serveurs · routeurs · pare-feu · gestion de parc · support technique · référent techniciens.</p></div>
+<div class="event"><div class="year">2008 → 2011</div><h3>Technicien bureautique · B.Contact développement</h3><p>Parc printers Toshiba, Konica Minolta et Canon · installation · maintenance · stock · atelier.</p></div>
+<div class="event"><div class="year">2001 → 2004</div><h3>Chargé des techniques opérationnelles · Multilignes</h3><p>Applications sur mesure · maintenance · statistiques · bases de données · relation client · formation utilisateurs.</p></div>
+<div class="event"><div class="year">2001</div><h3>DUT Analyste Programmeur appliqué à l'industrie</h3><p>AFPA — Rouen</p></div>
+<div class="event"><div class="year">1997</div><h3>Baccalauréat Technologique STI</h3><p>Lycée Joliot-Curie — Romilly-sur-Seine</p></div>
 </div>
 </section>
 
 <section id="technologies">
 <div class="section-title"><h2>03 / TECHNOLOGIES</h2><p>Une matrice de compétences construite sur le terrain.</p></div>
 <div class="matrix">
-<div class="tech"><strong>HARDWARE</strong><span>MFP · Printers · PC · Servers</span></div>
-<div class="tech"><strong>NETWORK</strong><span>TCP/IP · Routage IP · Routeurs · Pare-feu</span></div>
-<div class="tech"><strong>SYSTEMS</strong><span>Windows · Windows Server · Linux Debian · Active Directory</span></div>
-<div class="tech"><strong>REMOTE</strong><span>Remote Desktop · Support à distance</span></div>
-<div class="tech"><strong>DATA</strong><span>MySQL · Bases de données · Statistiques</span></div>
-<div class="tech"><strong>VIRTUALISATION</strong><span>Environnements virtualisés</span></div>
+<div class="tech"><strong>HARDWARE</strong><span>MFP · Printers · PC · Servers</span>
+  <div class="tech-more"><ul>
+    <li>MFP et imprimantes multi-marques</li>
+    <li>Postes de travail et périphériques</li>
+    <li>Serveurs physiques</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="tech"><strong>NETWORK</strong><span>TCP/IP · Routage IP · Routeurs · Pare-feu</span>
+  <div class="tech-more"><ul>
+    <li>TCP/IP et routage IP</li>
+    <li>Configuration de routeurs et pare-feu</li>
+    <li>Diagnostic réseau (VLAN, DNS, DHCP)</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="tech"><strong>SYSTEMS</strong><span>Windows · Windows Server · Linux Debian · Active Directory</span>
+  <div class="tech-more"><ul>
+    <li>Windows et Windows Server</li>
+    <li>Linux Debian</li>
+    <li>Active Directory (comptes, stratégies)</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="tech"><strong>REMOTE</strong><span>Remote Desktop · Support à distance</span>
+  <div class="tech-more"><ul>
+    <li>Prise en main de postes à distance</li>
+    <li>Support et diagnostic sans déplacement</li>
+    <li>Télémaintenance</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="tech"><strong>DATA</strong><span>MySQL · Bases de données · Statistiques</span>
+  <div class="tech-more"><ul>
+    <li>MySQL et bases de données relationnelles</li>
+    <li>Statistiques et reporting</li>
+    <li>Requêtes SQL</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="tech"><strong>VIRTUALISATION</strong><span>Environnements virtualisés</span>
+  <div class="tech-more"><ul>
+    <li>Environnements virtualisés</li>
+    <li>Machines virtuelles de test</li>
+    <li>Isolation des services</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
 </div>
 </section>
 
 <section id="lab">
 <div class="section-title"><h2>04 / THIBAULT LAB</h2><p>Explorer. Comprendre. Construire.</p></div>
 <div class="lab">
-<div class="card"><div class="num">LAB 01</div><h3>Linux & HomeLab</h3><p>Expérimentations autour de Linux, des serveurs, des réseaux et des services numériques.</p></div>
-<div class="card"><div class="num">LAB 02</div><h3>Python · Data · IA</h3><p>Découverte et approfondissement de Python, de l'analyse de données et des approches liées à l'intelligence artificielle.</p></div>
-<div class="card"><div class="num">LAB 03</div><h3>IoT · ESP32 · MQTT</h3><p>Exploration de systèmes connectés, capteurs, MQTT/MQTTS et supervision de données.</p></div>
-<div class="card"><div class="num">LAB 04</div><h3>Automation</h3><p>Recherche de solutions pour automatiser, fiabiliser et simplifier les tâches techniques.</p></div>
+<div class="card"><div class="num">LAB 01</div><h3>Linux & HomeLab</h3><p>Expérimentations autour de Linux, des serveurs, des réseaux et des services numériques.</p>
+  <div class="card-more"><ul>
+    <li>Serveur personnel Debian pour tests et services</li>
+    <li>Configuration réseau (DNS, DHCP, VPN)</li>
+    <li>Scripts d'administration et de sauvegarde</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">LAB 02</div><h3>Python · Data · IA</h3><p>Découverte et approfondissement de Python, de l'analyse de données et des approches liées à l'intelligence artificielle.</p>
+  <div class="card-more"><ul>
+    <li>Scripts d'analyse de données</li>
+    <li>Premiers projets de machine learning</li>
+    <li>Automatisation de tâches répétitives</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">LAB 03</div><h3>IoT · ESP32 · MQTT</h3><p>Exploration de systèmes connectés, capteurs, MQTT/MQTTS et supervision de données.</p>
+  <div class="card-more"><ul>
+    <li>Capteurs connectés (température, humidité)</li>
+    <li>Protocole MQTT/MQTTS et broker personnel</li>
+    <li>Tableaux de bord de supervision en temps réel</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">LAB 04</div><h3>Automation</h3><p>Recherche de solutions pour automatiser, fiabiliser et simplifier les tâches techniques.</p>
+  <div class="card-more"><ul>
+    <li>Scripts pour fiabiliser les tâches techniques récurrentes</li>
+    <li>Automatisation de la gestion de parc</li>
+    <li>Recherche d'outils no-code / low-code</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
 </div>
 </section>
 
@@ -139,7 +334,7 @@ footer{border-top:1px solid var(--line);padding:28px 24px;text-align:center;colo
 <div class="section-title"><h2>05 / CONTACT</h2><p>Un projet, une opportunité, un échange technique ?</p></div>
 <div class="contact">
 <div class="contactbox"><h3>THIBAULT HOSPITAL</h3><p>Technicien informatique · bureautique · infrastructure</p><p>Disponible pour échanger autour d'une opportunité technique, d'un projet ou d'un environnement IT.</p></div>
-<div class="contactbox"><h3>LET'S CONNECT</h3><p><strong>Email</strong><br>Thibault.hospital@gmail.com</p><p><strong>Téléphone</strong><br>06 38 05 31 93</p><p><strong>LinkedIn</strong><br>Profil professionnel</p></div>
+<div class="contactbox"><h3>LET'S CONNECT</h3><p><strong>Email</strong><br><a href="mailto:Thibault.hospital@gmail.com">Thibault.hospital@gmail.com</a></p><p><strong>Téléphone</strong><br>06 38 05 31 93</p><p><strong>LinkedIn</strong><br><a href="https://www.linkedin.com/in/thibault-hospital-8b181524b/" target="_blank" rel="noopener noreferrer">Profil professionnel</a></p></div>
 </div>
 </section>
 
@@ -181,6 +376,69 @@ footer{border-top:1px solid var(--line);padding:28px 24px;text-align:center;colo
   document.addEventListener('scroll', onScroll, { passive:true });
   btn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
   onScroll();
+})();
+
+/* ================= Mode clair / sombre ================= */
+(function(){
+  const root = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  // Respecte la préférence système au premier affichage (pas de stockage navigateur).
+  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  if(prefersLight) root.setAttribute('data-theme', 'light');
+
+  function setTheme(theme){
+    if(theme === 'light'){ root.setAttribute('data-theme','light'); }
+    else { root.removeAttribute('data-theme'); }
+    toggle.setAttribute('aria-label', theme === 'light' ? 'Basculer en mode sombre' : 'Basculer en mode clair');
+  }
+
+  toggle.addEventListener('click', () => {
+    const isLight = root.getAttribute('data-theme') === 'light';
+    setTheme(isLight ? 'dark' : 'light');
+  });
+})();
+
+/* ================= Flèches d'ouverture (cards / tech) ================= */
+(function(){
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.card-arrow, .tech-arrow');
+    if(!btn) return;
+    const container = btn.closest('.card, .tech');
+    if(!container) return;
+    const isOpen = container.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+})();
+
+/* ================= Menu mobile (hamburger) ================= */
+(function(){
+  const menuToggle = document.getElementById('menu-toggle');
+  const mainNav = document.getElementById('main-nav');
+  if(!menuToggle || !mainNav) return;
+
+  function closeMenu(){
+    mainNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+  function openMenu(){
+    mainNav.classList.add('open');
+    menuToggle.setAttribute('aria-expanded', 'true');
+  }
+
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.contains('open');
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  // Ferme le menu quand on choisit un lien
+  mainNav.addEventListener('click', (e) => {
+    if(e.target.closest('a')) closeMenu();
+  });
+
+  // Ferme le menu si la fenêtre repasse en format desktop
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 850) closeMenu();
+  });
 })();
 
 
