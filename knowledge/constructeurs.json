@@ -1,0 +1,33 @@
+{
+  "constructeur_toshiba": {
+    "keywords": ["toshiba"],
+    "reply": "Oui, Thibault a une expérience confirmée sur le parc Toshiba (installation, maintenance, dépannage), acquise chez B.Contact développement.",
+    "goto": "parcours",
+    "label": "Voir l'expérience concernée"
+  },
+  "constructeur_km": {
+    "keywords": ["konica", "minolta", "km "],
+    "reply": "Oui, Thibault a une expérience confirmée sur les gammes Konica Minolta, notamment sur la maintenance et le dépannage atelier.",
+    "goto": "parcours",
+    "label": "Voir l'expérience concernée"
+  },
+  "constructeur_canon": {
+    "keywords": ["canon"],
+    "reply": "Oui, Thibault a une expérience confirmée sur le matériel Canon, dans le cadre de la gestion de parc chez B.Contact développement.",
+    "goto": "parcours",
+    "label": "Voir l'expérience concernée"
+  },
+ "constructeur_sharp": {
+    "keywords": ["sharp"],
+    "reply": "Oui, Thibault a une expérience sur le déploiement de différents parcs en autonomie mais aussi en binôme avec le référent Laurent Pech sur la région PACA au sein de la société Clipper technologies.",
+    "goto": "parcours",
+    "label": "Voir l'expérience concernée"
+  },
+
+  "constructeur_autre": {
+    "keywords": ["kyocera", "ricoh", "xerox", "lexmark", "hp ", "brother", "epson"],
+    "reply": "Cette marque précise n'est pas détaillée dans le CV actuel. Thibault a une expérience confirmée sur Toshiba, Konica Minolta et Canon, ainsi qu'une pratique généraliste MFP/imprimantes sur l'ensemble de sa carrière — il s'adapte rapidement à un nouveau constructeur.",
+    "goto": "expertises",
+    "label": "Voir son profil"
+  }
+}
