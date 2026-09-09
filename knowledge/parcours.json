@@ -7,7 +7,7 @@
   },
 {
   "parcours_actuel": {
-    "keywords": ["dernier poste", "poste actuel", "actuellement", "clipper", "emploi récent", "dernière mission"],
+    "keywords": ["parcour","parcours","dernier poste", "poste actuel", "actuellement", "clipper", "emploi récent", "dernière mission"],
     "reply": "Depuis 2012 (jusqu'à juillet 2026), Thibault était technicien informatique chez Clipper Technologies : interventions sur MFP, PC, imprimantes, serveurs, routeurs et pare-feu, gestion autonome de parc bureautique, et rôle de référent technique auprès des autres techniciens.",
     "goto": "parcours",
     "label": "Voir le détail du poste"
