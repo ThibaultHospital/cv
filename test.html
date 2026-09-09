@@ -1,0 +1,139 @@
+<section class="philosophy-section">
+  <div class="philosophy-container">
+    
+    <!-- L'accroche philosophique inspirée de Stiegler -->
+    <div class="quote-wrapper">
+      <span class="quote-icon">«</span>
+      <p class="main-quote">
+        La technologie est un <strong>Pharmakon</strong> : elle est à la fois le poison qui paralyse l'entreprise lors d'une panne, et le remède qui la propulse lorsqu'elle est maîtrisée.
+      </p>
+      <span class="quote-author">— Inspiré par Bernard Stiegler, <em>Philosophe de la technique</em></span>
+    </div>
+
+    <!-- Votre manifeste / alignement technique -->
+    <div class="manifesto-content">
+      <h2>Ma Vision du Métier</h2>
+      <p class="manifesto-text">
+        Face à la complexité d'un système, je ne crois pas aux pansements temporaires. Mon rôle ne se limite pas à faire redémarrer une machine, mais à appliquer une véritable <strong>pharmacologie de l'infrastructure</strong>.
+      </p>
+      
+      <!-- Votre triptyque d'action mis en valeur -->
+      <div class="action-steps">
+        <div class="step">
+          <span class="step-number">01</span>
+          <h4>Comprendre</h4>
+          <p>Analyser l'écosystème global pour identifier pourquoi le problème survient.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">02</span>
+          <h4>Cibler</h4>
+          <p>Isoler la cause racine (matérielle, réseau ou applicative) sans spéculation.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">03</span>
+          <h4>Pérenniser</h4>
+          <p>Construire et déployer une solution fiable, documentée et définitive.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .philosophy-section {
+    background-color: #0f172a; /* Bleu nuit profond professionnel */
+    color: #f8fafc;
+    padding: 80px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .philosophy-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .philosophy-container { grid-template-columns: 1fr; gap: 40px; }
+  }
+  .quote-wrapper {
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    padding: 40px;
+    border-left: 5px solid #10b981; /* Vert Émeraude (le remède) */
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .quote-icon {
+    font-size: 80px;
+    color: rgba(16, 185, 129, 0.1);
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-family: serif;
+  }
+  .main-quote {
+    font-size: 1.35rem;
+    line-height: 1.7;
+    font-style: italic;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+  }
+  .main-quote strong {
+    color: #10b981;
+    font-style: normal;
+  }
+  .quote-author {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .manifesto-content h2 {
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  .manifesto-text {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  .action-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: rgba(30, 41, 59, 0.5);
+    padding: 15px;
+    border-radius: 6px;
+    transition: transform 0.2s;
+  }
+  .step:hover {
+    transform: translateX(10px);
+  }
+  .step-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #10b981;
+    font-family: monospace;
+  }
+  .step h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    color: #ffffff;
+  }
+  .step p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #94a3b8;
+  }
+</style>
