@@ -1,139 +1,388 @@
-<section class="philosophy-section">
-  <div class="philosophy-container">
-    
-    <!-- L'accroche philosophique inspirée de Stiegler -->
-    <div class="quote-wrapper">
-      <span class="quote-icon">«</span>
-      <p class="main-quote">
-        La technologie est un <strong>Pharmakon</strong> : elle est à la fois le poison qui paralyse l'entreprise lors d'une panne, et le remède qui la propulse lorsqu'elle est maîtrisée.
-      </p>
-      <span class="quote-author">— Inspiré par Bernard Stiegler, <em>Philosophe de la technique</em></span>
-    </div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thibault Hospital — IT & Solutions numériques</title>
+  <style>
+    /* ==========================================================================
+       VARIABLES GLOBALES & RESET
+       ========================================================================== */
+    :root {
+      --bg-dark: #0f172a;       /* Bleu nuit profond */
+      --bg-card: #1e293b;       /* Bleu ardoise pour les cartes */
+      --text-main: #f8fafc;     /* Blanc cassé */
+      --text-muted: #94a3b8;    /* Gris texte secondaire */
+      --primary: #10b981;       /* Vert émeraude (Le remède) */
+      --primary-hover: #059669;
+      --border-color: rgba(255, 255, 255, 0.08);
+    }
 
-    <!-- Votre manifeste / alignement technique -->
-    <div class="manifesto-content">
-      <h2>Ma Vision du Métier</h2>
-      <p class="manifesto-text">
-        Face à la complexité d'un système, je ne crois pas aux pansements temporaires. Mon rôle ne se limite pas à faire redémarrer une machine, mais à appliquer une véritable <strong>pharmacologie de l'infrastructure</strong>.
-      </p>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ==========================================================================
+       SECTION HERO (IMAGE PLEIN ÉCRAN + CENTRAGE CORRIGÉ)
+       ========================================================================== */
+    #hero {
+      position: relative;
+      /* Remplacez par le nom exact de votre image de fond */
+      background-image: url('hero-bg.jpg'); 
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 100%;
+      min-height: 100vh;
       
-      <!-- Votre triptyque d'action mis en valeur -->
-      <div class="action-steps">
-        <div class="step">
-          <span class="step-number">01</span>
-          <h4>Comprendre</h4>
-          <p>Analyser l'écosystème global pour identifier pourquoi le problème survient.</p>
-        </div>
-        <div class="step">
-          <span class="step-number">02</span>
-          <h4>Cibler</h4>
-          <p>Isoler la cause racine (matérielle, réseau ou applicative) sans spéculation.</p>
-        </div>
-        <div class="step">
-          <span class="step-number">03</span>
-          <h4>Pérenniser</h4>
-          <p>Construire et déployer une solution fiable, documentée et définitive.</p>
-        </div>
+      /* Flexbox magique pour forcer TOUT le texte au centre exact de l'image */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    /* Voile sombre sur l'image pour détacher le texte */
+    #hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.55); 
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2; /* Passe au-dessus du voile sombre */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .hero-badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -1px;
+    }
+
+    /* La Carte Philosophique Transparente (Stiegler) */
+    .hero-philosophy-card {
+      background: rgba(15, 23, 42, 0.7); 
+      backdrop-filter: blur(12px); 
+      -webkit-backdrop-filter: blur(12px); 
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--primary); 
+      padding: 30px;
+      border-radius: 12px;
+      margin: 25px 0;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      text-align: left;
+    }
+
+    .pharmakon-title {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .pharmakon-quote {
+      font-size: 1.2rem;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--text-main);
+      margin-bottom: 15px;
+    }
+
+    .pharmakon-action {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    .pharmakon-author {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* Boutons de la section d'accueil */
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .btn-primary, .btn-secondary {
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid var(--text-muted);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       SECTIONS DE CONTENU GENERALES
+       ========================================================================== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .section-title span {
+      color: var(--primary);
+    }
+
+    /* ==========================================================================
+       BLOC 01 / PROFIL & COMPÉTENCES (GRILLE DES 4 BLOCS)
+       ========================================================================== */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+    }
+
+    .profile-card {
+      background-color: var(--bg-card);
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .card-num {
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .profile-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+    }
+
+    .card-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+    }
+
+    .card-list {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 15px;
+    }
+
+    .card-list li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .card-list li::before {
+      content: "•";
+      color: var(--primary);
+      position: absolute;
+      left: 0;
+    }
+
+    /* ==========================================================================
+       BLOC 02 / PARCOURS PROFESSIONNEL (CHRONOLOGIE)
+       ========================================================================== */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .event {
+      background-color: var(--bg-card);
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--primary);
+    }
+
+    .year {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .event h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+
+    .event-list {
+      margin-left: 20px;
+    }
+
+    .event-list li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    /* ==========================================================================
+       SECTION CONTACT
+       ========================================================================== */
+    .contact-wrapper {
+      background-color: var(--bg-card);
+      padding: 40px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .contact-info p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .contact-links li {
+      margin-bottom: 15px;
+    }
+
+    .contact-links strong {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .contact-links a {
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+
+    .contact-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Rendu adaptatif mobile */
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 2.2rem; }
+      .hero-buttons { flex-direction: column; width: 100%; }
+      .btn-primary, .btn-secondary { text-align: center; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- ZONE EN-TÊTE / ACCUEIL (HERO)              -->
+  <!-- ========================================== -->
+  <section id="hero">
+    <div class="hero-content">
+      <span class="hero-badge">Technicien IT · Bureautique · Infrastructure</span>
+      <h1>Thibault Hospital</h1>
+      
+      <!-- La boîte philosophique en transparence -->
+      <div class="hero-philosophy-card">
+        <span class="pharmakon-title">Le concept du Pharmakon</span>
+        <p class="pharmakon-quote">
+          « La technologie est à la fois le poison qui paralyse une infrastructure, et le remède qui la propulse lorsqu'elle est maîtrisée. »
+        </p>
+        <p class="pharmakon-action">
+          Mon rôle ? Comprendre pourquoi un problème survient, identifier sa cause racine et construire une solution fiable.
+        </p>
+        <span class="pharmakon-author">— Inspiré par Bernard Stiegler</span>
+      </div>
+
+      <div class="hero-buttons">
+        <a href="#profil" class="btn-primary">Explorer mon profil</a>
+        <a href="#parcours" class="btn-secondary">Voir mon parcours</a>
       </div>
     </div>
-
-  </div>
-</section>
-
-<style>
-  .philosophy-section {
-    background-color: #0f172a; /* Bleu nuit profond professionnel */
-    color: #f8fafc;
-    padding: 80px 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  .philosophy-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-  @media (max-width: 768px) {
-    .philosophy-container { grid-template-columns: 1fr; gap: 40px; }
-  }
-  .quote-wrapper {
-    background: linear-gradient(145deg, #1e293b, #0f172a);
-    padding: 40px;
-    border-left: 5px solid #10b981; /* Vert Émeraude (le remède) */
-    border-radius: 8px;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  }
-  .quote-icon {
-    font-size: 80px;
-    color: rgba(16, 185, 129, 0.1);
-    position: absolute;
-    top: -10px;
-    left: 20px;
-    font-family: serif;
-  }
-  .main-quote {
-    font-size: 1.35rem;
-    line-height: 1.7;
-    font-style: italic;
-    color: #cbd5e1;
-    margin-bottom: 20px;
-  }
-  .main-quote strong {
-    color: #10b981;
-    font-style: normal;
-  }
-  .quote-author {
-    font-size: 0.9rem;
-    color: #94a3b8;
-    display: block;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .manifesto-content h2 {
-    font-size: 2.2rem;
-    color: #ffffff;
-    margin-bottom: 20px;
-  }
-  .manifesto-text {
-    font-size: 1.1rem;
-    color: #94a3b8;
-    line-height: 1.6;
-    margin-bottom: 40px;
-  }
-  .action-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .step {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    background: rgba(30, 41, 59, 0.5);
-    padding: 15px;
-    border-radius: 6px;
-    transition: transform 0.2s;
-  }
-  .step:hover {
-    transform: translateX(10px);
-  }
-  .step-number {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #10b981;
-    font-family: monospace;
-  }
-  .step h4 {
-    margin: 0 0 5px 0;
-    font-size: 1.1rem;
-    color: #ffffff;
-  }
-  .step p {
-    margin: 0;
-    font-size: 0.95rem;
-    color: #94a3b8;
-  }
-</style>
