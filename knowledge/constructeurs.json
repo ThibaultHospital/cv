@@ -25,7 +25,7 @@
   },
 
   "constructeur_autre": {
-    "keywords": ["kyocera", "ricoh", "xerox", "lexmark", "hp ", "brother", "epson"],
+    "keywords": ["kyocera", "ricoh", "lexmark", "hp ", "brother", "epson"],
     "reply": "Cette marque précise n'est pas détaillée dans le CV actuel. Thibault a une expérience confirmée sur Toshiba, Konica Minolta et Canon, ainsi qu'une pratique généraliste MFP/imprimantes sur l'ensemble de sa carrière — il s'adapte rapidement à un nouveau constructeur.",
     "goto": "expertises",
     "label": "Voir son profil"
