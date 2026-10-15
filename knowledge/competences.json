@@ -1,7 +1,7 @@
 {
   "reseaux": {
     "keywords": ["réseau", "tcp/ip", "tcpip", "routage", "routeur", "pare-feu", "firewall", "active directory", "ad "],
-    "reply": "Côté réseaux, Thibault intervient sur TCP/IP, le routage IP, les routeurs et pare-feu, ainsi que sur Active Directory. Ces compétences se sont construites sur le terrain, en environnement PME.",
+    "reply": "Côté réseaux, Thibault intervient sur TCP/IP, le routage IP, les routeurs et pare-feu, ainsi que sur Active Directory. Ces compétences se sont construites sur le terrain, dans les environnements TPE, PME et administration.",
     "goto": "technologies",
     "label": "Voir la matrice technique"
   },
