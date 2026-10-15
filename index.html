@@ -613,6 +613,29 @@ async function loadKB(){
 
 const FALLBACK = "Cette information n'apparaît pas dans le CV actuellement présenté. En revanche, je peux vous renseigner sur son parcours, ses compétences techniques, les constructeurs MFP qu'il maîtrise, ou sa disponibilité.";
 
+const RELAY_URL = "https://ubuntu-openclaw.tailba9d53.ts.net/ask";
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+async function askHermes(q){
+  try{
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 20000);
+    const r = await fetch(RELAY_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ question:q }),
+      signal: ctrl.signal
+    });
+    clearTimeout(t);
+    if(!r.ok) return null;
+    const d = await r.json();
+    return d.answer || null;
+  }catch(e){ return null; }
+}
+
 function normalize(s){
   return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
@@ -677,7 +700,7 @@ function handleUserInput(text){
   if(!text || !text.trim()) return;
   addMessage(text, 'user');
   const topic = matchTopic(text);
-  setTimeout(() => {
+  setTimeout(async () => {
     if(topic){
       if(topic.contactMode){
         addMessage(topic.reply + contactActions(), 'bot');
@@ -686,7 +709,10 @@ function handleUserInput(text){
         addMessage(topic.reply + gotoBtn, 'bot');
       }
     } else {
-      addMessage(FALLBACK, 'bot');
+      const wait = addMessage('…', 'bot');
+      const rep = await askHermes(text);
+      wait.innerHTML = rep ? escapeHtml(rep).replace(/\n/g,'<br>') : FALLBACK;
+      abody.scrollTop = abody.scrollHeight;
     }
   }, 380);
 }
