@@ -1,9 +1,27 @@
 {
-  "parcours_actuel": {
-    "keywords": ["dernier poste", "poste actuel", "actuellement", "clipper", "emploi récent", "dernière mission","parcours"],
-    "reply": "Depuis 2012 (jusqu'à juillet 2026), Thibault était technicien informatique chez Clipper Technologies : interventions sur MFP, PC, imprimantes, serveurs, routeurs et pare-feu, gestion autonome de parc bureautique, et rôle de référent technique auprès des autres techniciens.",
+  "parcours_global": {
+    "keywords": ["parcours", "expérience", "experience", "carrière", "carriere"],
+    "reply": "Thibault a plus de 18 ans d'expérience terrain en IT et bureautique : Expert Support Service chez Rex Rotary (depuis mai 2026), technicien informatique chez Clipper Technologies (2022 – mai 2026), technicien bureautique chez Natis (2012 – 2022) puis chez B.Contact développement (2008 – 2011), après un poste de magasinier chez Alpagel (2004 – 2008) et de chargé des techniques opérationnelles chez Multilignes Conseil (2001 – 2004).",
     "goto": "parcours",
     "label": "Voir le parcours complet"
+  },
+  "parcours_actuel": {
+    "keywords": ["dernier poste", "poste actuel", "actuellement", "rex rotary", "emploi récent", "dernière mission"],
+    "reply": "Depuis mai 2026, Thibault est Expert Support Service chez Rex Rotary : interventions sur site et à distance (MFP, PC, sauvegardes Synology), gestion du parc MFP Rex Rotary, reconditionnement de copieurs en atelier et déploiement de solutions de sauvegarde NAS via Veeam/Hyper-V.",
+    "goto": "parcours",
+    "label": "Voir le détail"
+  },
+  "parcours_clipper": {
+    "keywords": ["clipper", "power apps", "kizeo", "fortinet", "fortigate"],
+    "reply": "De 2022 à mai 2026, Thibault était technicien informatique chez Clipper Technologies : application Power Apps/Dataverse et flux Power Automate, administration de Kizeo Forms et de son API, référent technique d'une vingtaine de techniciens, pare-feu Fortinet, et gestion de parcs MFP multi-constructeurs.",
+    "goto": "parcours",
+    "label": "Voir le détail"
+  },
+  "parcours_natis": {
+    "keywords": ["natis"],
+    "reply": "De 2012 à 2022, Thibault était technicien bureautique chez Natis SAS : diagnostic et dépannage autonome de PC, imprimantes et serveurs, support multi-constructeurs, et gestion autonome du parc MFP Toshiba, de l'installation au maintien en conditions opérationnelles.",
+    "goto": "parcours",
+    "label": "Voir le détail"
   },
   "parcours_bcontact": {
     "keywords": ["bcontact", "b.contact", "2008", "2011", "gap", "briançon"],
@@ -11,9 +29,15 @@
     "goto": "parcours",
     "label": "Voir le détail"
   },
+  "parcours_alpagel": {
+    "keywords": ["alpagel", "magasinier", "gestionnaire de stock", "chaîne du froid"],
+    "reply": "De 2004 à 2008, Thibault était magasinier – gestionnaire de stock chez Alpagel (Groupe Relais d'Or Miko) : réception et contrôle des marchandises, entreposage en flux tendus dans le respect de la chaîne du froid, inventaires et préparation des commandes.",
+    "goto": "parcours",
+    "label": "Voir le détail"
+  },
   "parcours_multilignes": {
-    "keywords": ["multilignes", "2001", "2004", "développement", "applications sur mesure", "paris"],
-    "reply": "De 2001 à 2004, chez Multilignes (Paris), Thibault développait des applications sur-mesure, assurait leur maintenance, analysait des statistiques opérationnelles, gérait la relation client et formait les utilisateurs aux outils.",
+    "keywords": ["multilignes", "2001", "2004", "perform3", "télémarketing", "telemarketing", "paris"],
+    "reply": "De 2001 à 2004, chez Multilignes Conseil (Paris), Thibault était chargé des techniques opérationnelles : paramétrage des applications métier PERFORM3, maintenance sur les plateaux, analyse des statistiques opérationnelles, relation client et formation des utilisateurs.",
     "goto": "parcours",
     "label": "Voir le détail"
   },
