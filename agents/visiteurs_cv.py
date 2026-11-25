@@ -6,9 +6,11 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
+
 from datetime import datetime, timedelta, timezone
 from email.message import EmailMessage
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 
 UMAMI_URL = os.environ["UMAMI_URL"].rstrip("/")
@@ -21,6 +23,7 @@ ALERT_EMAIL = os.environ["ALERT_EMAIL"]
 
 STATE_FILE = Path("agents/.visiteurs_cv_state.json")
 MAX_STORED_SESSIONS = 5000
+PARIS = ZoneInfo("Europe/Paris")
 
 
 def log(message):
@@ -38,7 +41,7 @@ def api_get(path, params=None):
         headers={
             "Accept": "application/json",
             "Authorization": f"Bearer {UMAMI_API_KEY}",
-            "User-Agent": "GitHub-CV-Visitor-Monitor/1.0",
+            "User-Agent": "GitHub-CV-Visitor-Monitor/2.0",
         },
     )
 
@@ -53,14 +56,11 @@ def api_get(path, params=None):
 
 
 def get_sessions(start, end):
-    start_ms = int(start.timestamp() * 1000)
-    end_ms = int(end.timestamp() * 1000)
-
     result = api_get(
         f"/websites/{WEBSITE_ID}/sessions",
         {
-            "startAt": start_ms,
-            "endAt": end_ms,
+            "startAt": int(start.timestamp() * 1000),
+            "endAt": int(end.timestamp() * 1000),
             "page": 1,
             "pageSize": 100,
         },
@@ -72,23 +72,285 @@ def get_sessions(start, end):
     if isinstance(result, dict):
         return result.get("data", [])
 
-    raise RuntimeError("Format de réponse Umami inattendu.")
+    raise RuntimeError("Réponse inattendue de l'API Umami.")
 
 
-def get_activity(session_id, start, end):
+def get_session_details(session_id):
+    return api_get(
+        f"/websites/{WEBSITE_ID}/sessions/"
+        f"{urllib.parse.quote(session_id, safe='')}"
+    )
+
+
+def get_activity(session_id, first_at, last_at):
+    start = first_at - timedelta(minutes=5)
+    end = last_at + timedelta(minutes=5)
+
+    result = api_get(
+        f"/websites/{WEBSITE_ID}/sessions/"
+        f"{urllib.parse.quote(session_id, safe='')}/activity",
+        {
+            "startAt": int(start.timestamp() * 1000),
+            "endAt": int(end.timestamp() * 1000),
+        },
+    )
+
+    return result if isinstance(result, list) else []
+
+
+def parse_date(value):
+    if not value:
+        return None
+
     try:
-        result = api_get(
-            f"/websites/{WEBSITE_ID}/sessions/"
-            f"{urllib.parse.quote(session_id, safe='')}/activity",
-            {
-                "startAt": int(start.timestamp() * 1000),
-                "endAt": int(end.timestamp() * 1000),
-            },
+        return datetime.fromisoformat(
+            str(value).replace("Z", "+00:00")
         )
-        return result if isinstance(result, list) else []
+    except (ValueError, TypeError):
+        return None
+
+
+def format_date(value):
+    date = parse_date(value)
+
+    if not date:
+        return "Non disponible"
+
+    return date.astimezone(PARIS).strftime("%d/%m/%Y à %H:%M:%S")
+
+
+def format_duration(seconds):
+    if seconds is None:
+        return "Non disponible"
+
+    try:
+        seconds = max(0, int(seconds))
+    except (ValueError, TypeError):
+        return "Non disponible"
+
+    minutes, seconds = divmod(seconds, 60)
+
+    if minutes:
+        return f"{minutes} min {seconds} s"
+
+    return f"{seconds} s"
+
+
+def safe_value(value):
+    if value is None or value == "":
+        return "Non disponible"
+    return str(value)
+
+
+def extract_campaign(activity):
+    campaigns = {}
+
+    for event in activity:
+        query = event.get("urlQuery") or ""
+        values = urllib.parse.parse_qs(query)
+
+        for key in (
+            "utm_source",
+            "utm_medium",
+            "utm_campaign",
+            "utm_content",
+            "utm_term",
+        ):
+            if values.get(key):
+                campaigns[key] = values[key][0]
+
+    return campaigns
+
+
+def build_report(session):
+    session_id = session.get("id")
+
+    details = {}
+    activity = []
+
+    try:
+        details = get_session_details(session_id)
     except Exception as error:
-        log(f"Activité indisponible pour une session : {error}")
-        return []
+        log(f"Détails indisponibles pour une session : {error}")
+
+    first_at = parse_date(
+        details.get("firstAt") or session.get("firstAt")
+    )
+    last_at = parse_date(
+        details.get("lastAt") or session.get("lastAt")
+    )
+
+    if first_at and last_at:
+        try:
+            activity = get_activity(session_id, first_at, last_at)
+        except Exception as error:
+            log(f"Activité indisponible : {error}")
+
+    pages = []
+    events = []
+    referrers = []
+
+    for item in activity:
+        path = item.get("urlPath") or "/"
+        title = item.get("pageTitle") or ""
+        timestamp = format_date(item.get("createdAt"))
+
+        if item.get("eventType") == 2:
+            event_name = item.get("eventName") or "Événement sans nom"
+            events.append(f"{event_name} ({path})")
+            continue
+
+        label = f"{title} — {path}" if title else path
+
+        if label not in [page["label"] for page in pages]:
+            pages.append({
+                "label": label,
+                "time": timestamp,
+            })
+
+        domain = item.get("referrerDomain")
+        ref_path = item.get("referrerPath") or ""
+
+        if domain:
+            source = domain + ref_path
+            if source not in referrers:
+                referrers.append(source)
+
+    campaigns = extract_campaign(activity)
+
+    subdivision = (
+        details.get("subdivision1")
+        or details.get("region")
+        or session.get("subdivision1")
+        or session.get("region")
+    )
+
+    city = details.get("city") or session.get("city")
+
+    location = [
+        value for value in (city, subdivision, details.get("country") or session.get("country"))
+        if value
+    ]
+
+    return {
+        "first_at": format_date(details.get("firstAt") or session.get("firstAt")),
+        "last_at": format_date(details.get("lastAt") or session.get("lastAt")),
+        "location": " – ".join(location) or "Non disponible",
+        "country": safe_value(details.get("country") or session.get("country")),
+        "device": safe_value(details.get("device") or session.get("device")),
+        "browser": safe_value(details.get("browser") or session.get("browser")),
+        "os": safe_value(details.get("os") or session.get("os")),
+        "language": safe_value(details.get("language") or session.get("language")),
+        "screen": safe_value(details.get("screen") or session.get("screen")),
+        "hostname": safe_value(details.get("hostname") or session.get("hostname")),
+        "duration": format_duration(details.get("totaltime")),
+        "visits": safe_value(details.get("visits") or session.get("visits")),
+        "views": safe_value(details.get("views") or session.get("views")),
+        "events_count": safe_value(details.get("events") or session.get("events")),
+        "pages": pages,
+        "events": events,
+        "referrers": referrers,
+        "campaigns": campaigns,
+    }
+
+
+def send_email(sessions, now):
+    reports = []
+
+    for session in sessions:
+        reports.append(build_report(session))
+
+    message = EmailMessage()
+    message["Subject"] = (
+        f"🔔 {len(reports)} nouvelle(s) visite(s) sur ton CV"
+    )
+    message["From"] = GMAIL_USER
+    message["To"] = ALERT_EMAIL
+
+    lines = [
+        "Bonjour Thibault,",
+        "",
+        f"{len(reports)} nouvelle(s) session(s) détectée(s) sur ton CV.",
+        f"Détection : {now.astimezone(PARIS).strftime('%d/%m/%Y à %H:%M:%S')}",
+        "",
+        "=" * 48,
+        "",
+    ]
+
+    for index, info in enumerate(reports, start=1):
+        lines.extend([
+            f"VISITEUR {index}",
+            "-" * 48,
+            "",
+            "LOCALISATION",
+            f"Zone estimée : {info['location']}",
+            "",
+            "APPAREIL",
+            f"Type : {info['device']}",
+            f"Système : {info['os']}",
+            f"Navigateur : {info['browser']}",
+            f"Langue : {info['language']}",
+            f"Résolution : {info['screen']}",
+            "",
+            "ACTIVITÉ",
+            f"Première visite : {info['first_at']}",
+            f"Dernière activité : {info['last_at']}",
+            f"Durée : {info['duration']}",
+            f"Nombre de visites : {info['visits']}",
+            f"Pages vues : {info['views']}",
+            f"Événements : {info['events_count']}",
+            "",
+            "PROVENANCE",
+        ])
+
+        if info["referrers"]:
+            lines.extend(f"- {item}" for item in info["referrers"])
+        else:
+            lines.append("Accès direct ou provenance indisponible.")
+
+        if info["campaigns"]:
+            lines.extend([
+                "",
+                "CAMPAGNE",
+            ])
+            for key, value in info["campaigns"].items():
+                lines.append(f"- {key}: {value}")
+
+        lines.extend([
+            "",
+            "PARCOURS SUR LE CV",
+        ])
+
+        if info["pages"]:
+            for page in info["pages"]:
+                lines.append(f"- {page['time']} : {page['label']}")
+        else:
+            lines.append("Détail des pages indisponible.")
+
+        if info["events"]:
+            lines.extend([
+                "",
+                "ÉVÉNEMENTS DÉTECTÉS",
+            ])
+            lines.extend(f"- {event}" for event in info["events"])
+
+        lines.extend(["", "=" * 48, ""])
+
+    lines.extend([
+        "Tableau de bord Umami :",
+        UMAMI_URL,
+        "",
+        "Rapport automatique de surveillance du CV.",
+        "Les informations géographiques sont approximatives.",
+    ])
+
+    message.set_content("\n".join(lines))
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as smtp:
+        smtp.login(GMAIL_USER, GMAIL_APP_PASSWORD)
+        smtp.send_message(message)
+
+    log(f"Mail envoyé à {ALERT_EMAIL}.")
 
 
 def load_state():
@@ -99,11 +361,11 @@ def load_state():
         return json.load(file)
 
 
-def save_state(session_ids, initialized=True):
+def save_state(session_ids):
     STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
 
     data = {
-        "initialized": initialized,
+        "initialized": True,
         "session_ids": list(dict.fromkeys(session_ids))[-MAX_STORED_SESSIONS:],
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
@@ -116,130 +378,30 @@ def save_state(session_ids, initialized=True):
     temporary_file.replace(STATE_FILE)
 
 
-def format_date(value):
-    if not value:
-        return "Non disponible"
-
-    try:
-        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-        return parsed.astimezone().strftime("%d/%m/%Y à %H:%M:%S")
-    except (ValueError, TypeError):
-        return str(value)
-
-
-def describe_session(session, now):
-    session_id = session.get("id")
-    first_at = session.get("firstAt") or session.get("createdAt")
-
-    activity = get_activity(
-        session_id,
-        now - timedelta(hours=1),
-        now,
-    ) if session_id else []
-
-    pages = []
-    referrers = []
-
-    for event in activity:
-        path = event.get("urlPath")
-        if path and path not in pages:
-            pages.append(path)
-
-        referrer = event.get("referrerDomain")
-        if referrer and referrer not in referrers:
-            referrers.append(referrer)
-
-    country = session.get("country") or "Non disponible"
-    device = session.get("device") or "Non disponible"
-    browser = session.get("browser") or "Non disponible"
-    os_name = session.get("os") or "Non disponible"
-
-    return {
-        "date": format_date(first_at),
-        "country": country,
-        "device": device,
-        "browser": browser,
-        "os": os_name,
-        "pages": pages[:5],
-        "referrers": referrers[:3],
-        "views": session.get("views", "Non disponible"),
-    }
-
-
-def send_email(sessions, now):
-    message = EmailMessage()
-    message["Subject"] = (
-        f"🔔 {len(sessions)} nouvelle(s) session(s) sur ton CV"
-    )
-    message["From"] = GMAIL_USER
-    message["To"] = ALERT_EMAIL
-
-    lines = [
-        "Bonjour Thibault,",
-        "",
-        f"{len(sessions)} nouvelle(s) session(s) détectée(s) sur ton CV.",
-        f"Détection : {now.astimezone().strftime('%d/%m/%Y à %H:%M:%S')}",
-        "",
-    ]
-
-    for index, session in enumerate(sessions, start=1):
-        info = describe_session(session, now)
-
-        lines.extend([
-            f"VISITEUR {index}",
-            f"Première visite : {info['date']}",
-            f"Pays : {info['country']}",
-            f"Appareil : {info['device']}",
-            f"Navigateur : {info['browser']}",
-            f"Système : {info['os']}",
-            f"Pages consultées : {', '.join(info['pages']) or 'Non disponible'}",
-            f"Provenance : {', '.join(info['referrers']) or 'Non disponible'}",
-            f"Pages vues dans la session : {info['views']}",
-            "",
-        ])
-
-    lines.extend([
-        "Tableau de bord Umami :",
-        UMAMI_URL,
-        "",
-        "Notification automatique de ton site CV.",
-    ])
-
-    message.set_content("\n".join(lines))
-
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as smtp:
-        smtp.login(GMAIL_USER, GMAIL_APP_PASSWORD)
-        smtp.send_message(message)
-
-    log(f"Mail envoyé à {ALERT_EMAIL}.")
-
-
 def main():
     now = datetime.now(timezone.utc)
     state = load_state()
 
-    # Première exécution : on initialise l'historique sans alerte.
     if state is None or not state.get("initialized"):
-        log("Première exécution : initialisation de l'historique.")
+        log("Initialisation de l'historique des sessions.")
 
-        historical_sessions = get_sessions(
+        historical = get_sessions(
             now - timedelta(hours=24),
             now,
         )
 
         ids = [
             item["id"]
-            for item in historical_sessions
+            for item in historical
             if item.get("id")
         ]
 
         save_state(ids)
-        log(f"Initialisation terminée : {len(ids)} sessions mémorisées.")
+        log(f"{len(ids)} sessions mémorisées. Aucune alerte initiale.")
         return
 
     known_ids = set(state.get("session_ids", []))
 
-    # Fenêtre de 30 minutes pour tolérer les retards de GitHub Actions.
     recent_sessions = get_sessions(
         now - timedelta(minutes=30),
         now,
@@ -254,22 +416,21 @@ def main():
         log("Aucune nouvelle session.")
         return
 
-    # Les plus anciennes sont présentées en premier.
     new_sessions.sort(
-        key=lambda item: item.get("firstAt") or item.get("createdAt") or ""
+        key=lambda item: item.get("firstAt") or ""
     )
 
-    log(f"{len(new_sessions)} nouvelle(s) session(s) détectée(s).")
+    log(f"{len(new_sessions)} nouvelle(s) session(s).")
 
-    # En cas d'échec Gmail, on ne mémorise pas les sessions :
-    # le prochain passage pourra retenter l'envoi.
+    # Envoi avant sauvegarde : si Gmail échoue, le prochain passage
+    # pourra retenter l'envoi.
     send_email(new_sessions, now)
 
     updated_ids = list(known_ids)
     updated_ids.extend(item["id"] for item in new_sessions)
 
     save_state(updated_ids)
-    log("Historique des sessions mis à jour.")
+    log("Historique mis à jour.")
 
 
 if __name__ == "__main__":
