@@ -1,7 +1,7 @@
 {
   "constructeur_toshiba": {
     "keywords": ["toshiba"],
-    "reply": "Oui, Thibault a une expérience confirmée sur le parc Toshiba (installation, maintenance, dépannage, formation utilisateur), acquise chez ses différents employeurs.",
+    "reply": "Oui, Thibault a une expérience confirmée sur le parc Toshiba acquise chez ses différents employeurs (installation, maintenance, dépannage, formation utilisateurs et administrateurs) .",
     "goto": "parcours",
     "label": "Voir l'expérience concernée"
   },
