@@ -1,3 +1,4 @@
+
 {
   "reseaux": {
     "keywords": ["réseau", "tcp/ip", "tcpip", "routage", "routeur", "pare-feu", "firewall", "active directory", "ad "],
@@ -18,106 +19,39 @@
     "label": "Voir la matrice technique"
   },
   "mfp_general": {
-    "keywords": ["expertises","mfp", "copieur", "copieurs", "photocopieuse", "imprimante", "imprimantes", "multifonction", "scanner"],
-    "reply": "Thibault a une solide expérience dans les sytèmes d'impression multi-marques : installation, configuration, maintenance et dépannage, acquise chez Clipper Technologies et B.Contact développement.",
+    "keywords": ["expertises", "mfp", "copieur", "copieurs", "photocopieuse", "imprimante", "imprimantes", "multifonction", "scanner"],
+    "reply": "Thibault a une solide expérience dans les systèmes d'impression multimarques : installation, configuration, maintenance et dépannage, acquise chez Clipper Technologies et B.Contact Développement.",
     "goto": "expertises",
     "label": "Voir le profil"
   },
   "data": {
     "keywords": ["données", "donnees", "base de données", "mysql", "sql", "statistiques", "développement", "python", "ia", "intelligence artificielle", "automatisation"],
-    "reply": "Thibault a une expérience en développement d'applications sur-mesure et bases de données, et explore aujourd'hui Python, l'analyse de données et l'IA, l'agentique dans une logique d'apprentissage continu — voir la section Lab.",
+    "reply": "Thibault a une expérience en développement d'applications sur mesure et bases de données, et explore aujourd'hui Python, l'analyse de données, l'IA et l'agentique dans une logique d'apprentissage continu — voir la section Lab.",
     "goto": "lab",
     "label": "Voir le Lab"
   },
-{
   "support_mfp_partenaire": {
-    "keywords": [
-      "support technique",
-      "support niveau 1",
-      "support niveau 2",
-      "n1",
-      "n2",
-      "niveau 1",
-      "niveau 2",
-      "niveau 3",
-      "n3",
-      "diagnostic avancé",
-      "incident complexe",
-      "hotline technique",
-      "support distributeur",
-      "support revendeur",
-      "support sous traitant",
-      "partenaire technique",
-      "assistance technique"
-    ],
+    "keywords": ["support technique", "support niveau 1", "support niveau 2", "n1", "n2", "niveau 1", "niveau 2", "niveau 3", "n3", "diagnostic avancé", "incident complexe", "hotline technique", "support distributeur", "support revendeur", "support sous traitant", "partenaire technique", "assistance technique"],
     "reply": "Thibault maîtrise le support technique de niveaux 1 et 2, aussi bien dans le diagnostic, la maintenance, le dépannage matériel et logiciel que dans l'analyse des problématiques de connectivité et d'environnement réseau des systèmes multifonctions. Il a l'habitude d'interagir avec différents interlocuteurs, notamment des techniciens, distributeurs, revendeurs et sous-traitants. Il souhaite aujourd'hui évoluer vers un support technique plus avancé, notamment de niveau 3, en approfondissant son expertise constructeur, l'analyse des incidents complexes, les tests et la validation de solutions.",
     "goto": "expertises",
     "label": "Voir les expertises techniques"
   },
   "accompagnement_reseau": {
-    "keywords": [
-      "distributeur",
-      "distributeurs",
-      "revendeur",
-      "revendeurs",
-      sous traitant",
-      sous traitants",
-      réseau indirect",
-      partenaires",
-      accompagnement technique",
-      référent technique",
-      montée en compétences",
-      assistance partenaires",
-      relais technique"
-    ],
+    "keywords": ["distributeur", "distributeurs", "revendeur", "revendeurs", "sous traitant", "sous traitants", "réseau indirect", "partenaires", "accompagnement technique", "référent technique", "montée en compétences", "assistance partenaires", "relais technique"],
     "reply": "Thibault possède une expérience de terrain qui lui permet d'interagir avec différents acteurs de la chaîne technique : clients, distributeurs, revendeurs et sous-traitants. Il sait apporter un appui opérationnel, partager ses connaissances, transmettre les bonnes pratiques, faciliter la résolution des incidents et accompagner les intervenants dans leurs démarches techniques. Il apprécie particulièrement le rôle de relais et d'accompagnant technique, permettant de faire le lien entre les équipes, les exigences des constructeurs et la réalité du terrain.",
     "goto": "expertises",
     "label": "Voir son expérience terrain"
   },
   "deploiement_solutions": {
-    "keywords": [
-      "déploiement",
-      "déploiements",
-      installation complexe",
-      mise en production",
-      configuration",
-      intégration",
-      tests",
-      validation",
-      poc",
-      maquettage",
-      solutions documentaires",
-      solutions logicielles",
-      gestion de parc",
-      projets techniques"
-    ],
+    "keywords": ["déploiement", "déploiements", "installation complexe", "mise en production", "configuration", "intégration", "tests", "validation", "poc", "maquettage", "solutions documentaires", "solutions logicielles", "gestion de parc", "projets techniques"],
     "reply": "Thibault intervient dans les phases d'installation, de configuration, de mise en service et de résolution de problématiques techniques liées aux équipements et aux solutions d'impression. Il sait analyser un environnement, identifier les contraintes matérielles, logicielles et réseau, effectuer les vérifications nécessaires et accompagner la mise en œuvre. Il souhaite renforcer cette expérience en participant davantage aux déploiements complexes, aux tests, aux POC et à la validation de solutions dans un environnement constructeur ou partenaire.",
     "goto": "expertises",
     "label": "Voir ses compétences de déploiement"
   },
   "veille_technologique_formation_documentation": {
-    "keywords": [
-      "veille technologique",
-      "nouvelles générations",
-      nouveaux matériels",
-      nouveaux produits",
-      innovation",
-      formation technique",
-      documentation technique",
-      procédures",
-      sharepoint",
-      power apps",
-      microsoft 365",
-      bonnes pratiques",
-      processus",
-      capitalisation",
-      transfert de compétences"
-    ],
+    "keywords": ["veille technologique", "nouvelles générations", "nouveaux matériels", "nouveaux produits", "innovation", "formation technique", "documentation technique", "procédures", "sharepoint", "power apps", "microsoft 365", "bonnes pratiques", "processus", "capitalisation", "transfert de compétences"],
     "reply": "Thibault est attentif aux évolutions technologiques, aux nouvelles générations de matériels, aux solutions logicielles et aux nouveaux usages. Il apprécie particulièrement l'analyse des nouveautés, la compréhension de leur fonctionnement et le partage de ces connaissances. Il a notamment participé à la structuration de documentations techniques et de procédures avec les outils Microsoft 365, dont SharePoint et Power Apps, afin de faciliter le travail des techniciens, harmoniser les pratiques et accompagner les déploiements. Il se positionne comme un accompagnant technique, un relais terrain et un contributeur à l'amélioration continue.",
     "goto": "technologies",
     "label": "Voir ses compétences techniques"
   }
-}
-
-  
 }
