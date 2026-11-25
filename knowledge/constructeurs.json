@@ -1,7 +1,7 @@
 {
   "constructeur_toshiba": {
     "keywords": ["toshiba"],
-    "reply": "Oui, Thibault a une expérience confirmée sur le parc Toshiba (installation, maintenance, dépannage), acquise chez B.Contact développement.",
+    "reply": "Oui, Thibault a une expérience confirmée sur le parc Toshiba (installation, maintenance, dépannage, formation utilisateur), acquise chez ses différents employeurs.",
     "goto": "parcours",
     "label": "Voir l'expérience concernée"
   },
@@ -19,7 +19,7 @@
   },
  "constructeur_sharp": {
     "keywords": ["sharp"],
-    "reply": "Oui, Thibault a une expérience sur le déploiement de différents parcs en autonomie mais aussi en binôme avec le référent Laurent Pech sur la région PACA au sein de la société Clipper technologies.",
+    "reply": "Oui, Thibault a une expérience sur le déploiement de différents parcs en autonomie mais aussi en binôme avec le référent Laurent Pech sur la région PACA au sein de la société Clipper technologies. Il a réalisé la mise en place des documentations techniques gràce aux outils 365 comme sharepoint et power apps pour aider les techniciens sur les futurs déploiements nationaux pour la marque. Il fut le relais technique et référent des bons processus.",
     "goto": "parcours",
     "label": "Voir l'expérience concernée"
   },
