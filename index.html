@@ -649,7 +649,7 @@ function escapeHtml(s){
 
 async function askHermes(q){
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 20000);
+  const timer = setTimeout(() => ctrl.abort(), 100000);
 
   try {
     const r = await fetch(RELAY_URL, {
