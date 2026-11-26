@@ -98,6 +98,54 @@ footer{border-top:1px solid var(--line);padding:28px 24px;text-align:center;colo
 #totop svg{width:18px;height:18px}
 [data-theme="light"] #totop{background:rgba(255,255,255,.85)}
 
+
+/* =========================================================
+   ANIMATION DES 3 POINTS – ASSISTANT HERMES
+   ========================================================= */
+
+.typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 22px;
+  padding: 5px 2px;
+}
+
+.typing span {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: typingBounce 0.8s infinite ease-in-out;
+}
+
+.typing span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing span:nth-child(3) {
+  animation-delay: 0.30s;
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-7px);
+    opacity: 1;
+  }
+}
+
+
+
+  
 /* ---------- Assistant ---------- */
 #assistant-overlay{position:fixed;inset:0;background:rgba(4,10,17,.6);backdrop-filter:blur(3px);z-index:59;opacity:1;transition:opacity .5s ease;pointer-events:auto}
 #assistant-overlay.hidden{opacity:0;pointer-events:none}
