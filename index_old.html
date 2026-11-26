@@ -1,1 +1,888 @@
-c
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thibault Hospital — IT & Solutions numériques</title>
+<style>
+:root{--bg:#07111d;--panel:#0d1b2a;--line:#234057;--txt:#edf6ff;--muted:#91a8bc;--accent:#55d6ff;--accent2:#7b8cff}
+[data-theme="light"]{--bg:#f3f7fb;--panel:#ffffff;--line:#d7e2ea;--txt:#0c1e2d;--muted:#4f6577;--accent:#0f8fc7;--accent2:#5b6bcf}
+[data-theme="light"] body{background:radial-gradient(circle at 80% 10%,#dbeefb 0,transparent 32%),radial-gradient(circle at 15% 60%,#e6f2f8 0,transparent 28%),var(--bg)}
+[data-theme="light"] header{background:rgba(243,247,251,.78)}
+[data-theme="light"] .btn.primary{color:#fff}
+[data-theme="light"] .hero h1 span{-webkit-text-stroke-color:#8fa6b8}
+[data-theme="light"] .status{color:#5c7285}
+[data-theme="light"] .tag{border-color:#c9d8e2;color:#42586a}
+[data-theme="light"] #assistant,[data-theme="light"] #assistant-bubble{background:linear-gradient(165deg,#ffffff,#eaf2f8)}
+[data-theme="light"] #assistant .msg.bot{background:rgba(15,143,199,.08);border-color:rgba(15,143,199,.2)}
+[data-theme="light"] #assistant-overlay{background:rgba(180,200,215,.45)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden}body{margin:0;overflow-x:hidden;background:radial-gradient(circle at 80% 10%,#12304a 0,transparent 32%),radial-gradient(circle at 15% 60%,#10263a 0,transparent 28%),var(--bg);color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.5;transition:background .3s ease,color .3s ease}a{color:inherit;text-decoration:none}
+header{position:fixed;top:0;width:100%;z-index:20;background:rgba(7,17,29,.72);backdrop-filter:blur(16px);border-bottom:1px solid rgba(120,180,220,.12);transition:background .3s ease}
+.nav{position:relative;max-width:1180px;margin:auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}.navleft{display:flex;align-items:center;gap:14px}.logo{font-weight:800;letter-spacing:.08em}.logo span{color:var(--accent)}nav a{margin-left:22px;color:var(--muted);font-size:.9rem}nav a:hover{color:var(--txt)}
+.theme-toggle{flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--accent);cursor:pointer;transition:border-color .2s ease}
+.theme-toggle:hover{border-color:var(--accent)}
+.theme-toggle svg{width:17px;height:17px}
+.theme-toggle .icon-moon{display:none}
+[data-theme="light"] .theme-toggle .icon-sun{display:none}
+[data-theme="light"] .theme-toggle .icon-moon{display:block}
+.cv-download{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin-left:22px;border:1px solid var(--line);border-radius:50%;color:var(--accent);transition:border-color .2s ease,background .2s ease}
+.cv-download:hover{border-color:var(--accent);background:rgba(85,214,255,.1)}
+.cv-download svg{width:16px;height:16px}
+.cv-label-mobile{display:none}
+.menu-toggle{display:none;flex:none;width:38px;height:38px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:8px;background:none;color:var(--txt);cursor:pointer}
+.menu-toggle svg{width:20px;height:20px}
+.menu-toggle .icon-close{display:none}
+.menu-toggle[aria-expanded="true"] .icon-burger{display:none}
+.menu-toggle[aria-expanded="true"] .icon-close{display:block}
+section{max-width:1180px;margin:auto;padding:110px 24px 50px}.hero{position:relative;min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:60px 24px 60px;margin:0 auto;max-width:1180px}.hero-bg{position:absolute;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);z-index:0;overflow:hidden;pointer-events:none;opacity:.62;transition:opacity .2s linear;top: 0;}.hero-bg img{width:100%;height:130%;object-fit:cover;display:block;}.hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,var(--bg) 0%,rgba(7,17,29,.88) 20%,rgba(7,17,29,.55) 38%,rgba(7,17,29,.15) 56%,transparent 72%),linear-gradient(180deg,var(--bg) 0%,transparent 12%,transparent 82%,var(--bg) 100%)}[data-theme="light"] .hero-bg:after{background:linear-gradient(100deg,var(--bg) 0%,rgba(243,247,251,.9) 20%,rgba(243,247,251,.6) 38%,rgba(243,247,251,.18) 56%,transparent 72%),linear-gradient(180deg,var(--bg) 0%,transparent 12%,transparent 82%,var(--bg) 100%)}.hero>div{position:relative;z-index:2}.eyebrow{font-size:.78rem;letter-spacing:.2em;color:var(--accent);font-weight:700}.hero h1{font-size:clamp(3rem,7vw,6.8rem);line-height:.9;margin:18px 0}.hero h1 span{display:block;color:transparent;-webkit-text-stroke:1px #8da9bd}.hero h2{font-size:1.3rem;font-weight:500;color:#c9d8e5}.hero p{color:var(--muted);max-width:650px;font-size:1.05rem}.buttons{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}.btn{padding:13px 20px;border:1px solid var(--line);border-radius:4px}.btn.primary{background:linear-gradient(90deg,var(--accent),#79b9ff);color:#03101b;border:0;font-weight:800}
+.scroll-cue{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:15;width:56px;height:56px;border-radius:50%;border:1px solid var(--line);background:rgba(13,27,42,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:var(--accent);cursor:pointer;transition:border-color .2s ease,opacity .2s linear,background .3s ease;animation:scrollCueBounce 2.2s ease-in-out infinite}
+.scroll-cue:hover{border-color:var(--accent)}
+.scroll-cue svg{width:24px;height:24px}
+[data-theme="light"] .scroll-cue{background:rgba(255,255,255,.7)}
+@keyframes scrollCueBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@media(prefers-reduced-motion:reduce){.scroll-cue{animation:none}}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:30px;flex-wrap:wrap}.section-title h2{font-size:clamp(1.3rem,4.2vw,2.3rem);margin:0}.section-title p{color:var(--muted);margin:0;font-size:clamp(.82rem,2.6vw,1rem)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}.card{position:relative;background:linear-gradient(145deg,rgba(17,36,54,.9),rgba(9,23,36,.75));border:1px solid var(--line);padding:25px;padding-bottom:56px;min-height:220px;transition:.25s}.card:hover{transform:translateY(-5px);border-color:var(--accent)}.num{color:var(--accent);font-size:.72rem;letter-spacing:.15em}.card h3{margin:25px 0 8px}.card p{color:var(--muted);font-size:.92rem}
+.timeline{border-left:1px solid var(--line);padding-left:30px}.event{position:relative;margin:0 0 38px}.event:before{content:"";position:absolute;left:-36px;top:7px;width:10px;height:10px;border:2px solid var(--accent);background:var(--bg);border-radius:50%}.year{color:var(--accent);font-weight:800}.event h3{margin:4px 0}.event p{color:var(--muted);margin:4px 0}.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.tag{font-size:.72rem;padding:5px 8px;border:1px solid #29465d;color:#aac0d0}
+.matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:start}.tech{position:relative;padding:18px;padding-bottom:50px;border:1px solid var(--line);background:rgba(13,27,42,.7)}.tech strong{display:block;margin-bottom:8px}.tech span{color:var(--muted);font-size:.9rem}
+.lab{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}.lab .card{min-height:170px}
+.quote{font-size:clamp(1.7rem,3.4vw,3rem);line-height:1.1;max-width:900px;margin:0 auto;text-align:center}.quote span{color:var(--accent)}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:30px}.contactbox{border:1px solid var(--line);padding:30px;background:rgba(13,27,42,.65)}.contactbox p{color:var(--muted)}.contactbox a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s ease}.contactbox a:hover{border-bottom-color:var(--accent)}
+footer{border-top:1px solid var(--line);padding:28px 24px;text-align:center;color:#71899b;font-size:.8rem}
+
+/* ---------- Lisibilité mode clair ---------- */
+[data-theme="light"] .card{background:linear-gradient(145deg,#ffffff,#eef4f9)}
+[data-theme="light"] .tech{background:#ffffff}
+[data-theme="light"] .contactbox{background:#ffffff}
+[data-theme="light"] .card:hover{border-color:var(--accent)}
+
+/* ---------- Flèche d'ouverture des cards / tech ---------- */
+.card-arrow,.tech-arrow{position:absolute;right:14px;bottom:14px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:rgba(85,214,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .3s ease,border-color .2s ease,background .2s ease;color:var(--accent);flex:none}
+.card-arrow:hover,.tech-arrow:hover{border-color:var(--accent);background:rgba(85,214,255,.15)}
+.card-arrow svg,.tech-arrow svg{width:14px;height:14px;transition:transform .3s ease}
+.card.open .card-arrow,.tech.open .tech-arrow{transform:rotate(90deg)}
+.card-more,.tech-more{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .3s ease,margin-top .3s ease}
+.card.open .card-more,.tech.open .tech-more{max-height:420px;opacity:1;margin-top:14px}
+.card-more ul,.tech-more ul{margin:0;padding-left:18px;color:var(--muted);font-size:.85rem;list-style:disc}
+.card-more li,.tech-more li{margin-bottom:6px}
+.card-more{border-top:1px solid var(--line);padding-top:12px}
+.tech-more{border-top:1px solid var(--line);padding-top:10px}
+@media(max-width:850px){
+  .menu-toggle{display:flex}
+  header nav{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    flex-direction:column;
+    background:rgba(7,17,29,.97);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+    padding:6px 24px 18px;
+  }
+  [data-theme="light"] header nav{background:rgba(243,247,251,.97)}
+  header nav.open{display:flex}
+  header nav a{margin-left:0;padding:13px 0;font-size:1rem;border-bottom:1px solid rgba(120,180,220,.1)}
+  header nav a.cv-download{display:flex;align-items:center;gap:10px;width:auto;height:auto;border-radius:0;border:0;border-bottom:1px solid rgba(120,180,220,.1);margin:0;padding:13px 0}
+  header nav a.cv-download svg{width:16px;height:16px}
+  header nav a.cv-download .cv-label-mobile{display:inline}
+  .hero,.contact,.lab{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.matrix{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){section{padding-left:18px;padding-right:18px}.grid,.matrix{grid-template-columns:1fr}.hero h1{font-size:3.5rem}}
+
+/* ---------- Retour en haut ---------- */
+#totop{position:fixed;left:24px;bottom:24px;z-index:40;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(13,27,42,.85);backdrop-filter:blur(8px);color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease,border-color .25s ease,background .3s ease}
+#totop.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+#totop:hover{border-color:var(--accent)}
+#totop svg{width:18px;height:18px}
+[data-theme="light"] #totop{background:rgba(255,255,255,.85)}
+
+/* ---------- Assistant ---------- */
+#assistant-overlay{position:fixed;inset:0;background:rgba(4,10,17,.6);backdrop-filter:blur(3px);z-index:59;opacity:1;transition:opacity .5s ease;pointer-events:auto}
+#assistant-overlay.hidden{opacity:0;pointer-events:none}
+
+#assistant{position:fixed;z-index:60;background:linear-gradient(165deg,rgba(19,40,58,.97),rgba(9,19,31,.98));border:1px solid var(--line);border-radius:20px;box-shadow:0 30px 70px rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:scale(.94);transform-origin:center;transition:left .6s cubic-bezier(.22,.9,.3,1),top .6s cubic-bezier(.22,.9,.3,1),width .6s cubic-bezier(.22,.9,.3,1),height .6s cubic-bezier(.22,.9,.3,1),border-radius .5s ease,opacity .45s ease,transform .45s ease}
+#assistant.visible{opacity:1;transform:scale(1)}
+
+#assistant .ahead{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);flex:none}
+#assistant .aavatar{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--accent),#155275 70%);box-shadow:0 0 14px rgba(85,214,255,.5);flex:none;position:relative}
+#assistant .aavatar:after{content:"";position:absolute;right:-1px;bottom:-1px;width:9px;height:9px;border-radius:50%;background:#33e07a;border:2px solid #0d1b2a}
+#assistant .atitle{font-weight:700;font-size:.92rem}
+#assistant .asub{font-size:.72rem;color:var(--muted)}
+#assistant .amin{margin-left:auto;background:none;border:1px solid var(--line);color:var(--muted);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center}
+#assistant .amin:hover{color:var(--txt);border-color:var(--accent)}
+
+#assistant .abody{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+#assistant .abody::-webkit-scrollbar{width:6px}
+#assistant .abody::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+
+#assistant .msg{max-width:88%;font-size:.87rem;line-height:1.55;padding:11px 13px;border-radius:12px}
+#assistant .msg.bot{align-self:flex-start;background:rgba(85,214,255,.08);border:1px solid rgba(85,214,255,.18);border-bottom-left-radius:3px}
+#assistant .msg.user{align-self:flex-end;background:linear-gradient(90deg,var(--accent),#79b9ff);color:#03101b;font-weight:600;border-bottom-right-radius:3px}
+#assistant .msg .go{display:inline-flex;margin-top:9px;font-size:.76rem;font-weight:700;color:var(--accent);border:1px solid rgba(85,214,255,.35);padding:6px 10px;border-radius:8px;cursor:pointer;background:none}
+#assistant .msg .go:hover{background:rgba(85,214,255,.12)}
+
+#assistant .chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 18px 12px;flex:none}
+#assistant .chip{font-size:.68rem;padding:6px 9px;border-radius:16px;border:1px solid var(--line);color:var(--muted);background:rgba(13,27,42,.5);cursor:pointer;transition:.2s}
+#assistant .chip:hover{color:var(--txt);border-color:var(--accent)}
+[data-theme="light"] #assistant .chip{background:rgba(15,143,199,.08);color:#3d5266}
+[data-theme="light"] #assistant .chip:hover{color:var(--txt);border-color:var(--accent);background:rgba(15,143,199,.16)}
+
+#assistant .aform{display:flex;gap:8px;padding:14px 16px;border-top:1px solid var(--line);flex:none}
+#assistant .aform input{flex:1;background:rgba(4,10,17,.6);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:11px 13px;font-size:.85rem;font-family:inherit}
+#assistant .aform input::placeholder{color:var(--muted);opacity:1}
+#assistant .aform input:focus{outline:none;border-color:var(--accent)}
+#assistant .aform button{width:42px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),#79b9ff);color:#03101b;font-weight:800;cursor:pointer}
+[data-theme="light"] #assistant .aform input{background:#eef4f9;color:var(--txt)}
+
+#assistant-bubble{position:fixed;right:24px;bottom:24px;z-index:58;width:60px;height:60px;border-radius:50%;background:linear-gradient(165deg,#12304a,#0d1b2a);border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:scale(.7);transition:opacity .3s ease,transform .3s ease,border-color .2s ease}
+#assistant-bubble.show{opacity:1;pointer-events:auto;transform:scale(1)}
+#assistant-bubble:hover{border-color:var(--accent)}
+#assistant-bubble .dot2{position:absolute;top:6px;right:6px;width:10px;height:10px;border-radius:50%;background:#33e07a;box-shadow:0 0 8px #33e07a}
+
+@media(prefers-reduced-motion:reduce){#assistant{transition:opacity .3s ease}}
+
+/* ---------- Indicateur « l'assistant réfléchit » ---------- */
+.typing{display:inline-flex;gap:5px;align-items:center;padding:4px 0}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.3;animation:typingDot 1.2s infinite ease-in-out}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes typingDot{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){.typing span{animation:none;opacity:.7}}
+
+@media(max-width:520px){
+  #assistant.docked{width:min(360px,94vw) !important;height:min(70vh,520px) !important}
+  #totop{left:16px;bottom:16px;width:42px;height:42px}
+  #assistant-bubble{right:16px;bottom:16px}
+}
+
+  
+  /* ------ desactivation agent ia -------- a supprimer si reactiver
+  
+  #assistant,#assistant-overlay,#assistant-bubble{display:none !important}
+  
+  
+  --------*/
+
+
+  
+</style>
+
+<script
+  async
+  defer
+  data-website-id="76539af7-fd5e-44a1-94b5-5f357ee1cd69"
+  src="https://ubuntu-openclaw.tailba9d53.ts.net/script.js">
+</script>
+
+  
+</head>
+<body>
+<header>
+<div class="nav">
+  <div class="navleft">
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Basculer en mode clair" title="Changer de thème">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </button>
+    <div class="logo">THIBAULT<span>.</span>HOSPITAL</div>
+  </div>
+  <nav id="main-nav">
+    <a href="#expertises">EXPERTISES</a>
+    <a href="#parcours">PARCOURS</a>
+    <a href="#technologies">TECH</a>
+    <a href="#lab">LAB</a>
+    <a href="#contact">CONTACT</a>
+    <a class="cv-download" href="Curriculum_vitae.pdf" download aria-label="Télécharger le CV" title="Télécharger le CV">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><polyline points="7 11 12 16 17 11"></polyline><path d="M5 19h14"></path></svg>
+      <span class="cv-label-mobile">TÉLÉCHARGER LE CV</span>
+    </a>
+  </nav>
+  <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+    <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+</div>
+</header>
+
+<section class="hero">
+<div class="hero-bg" aria-hidden="true" id="heroBg"><img src="hero-bg.png" alt=""></div>
+<div>
+<div class="eyebrow">TECHNICAL PROFILE // 18+ YEARS EXPERIENCE</div>
+<h1>THIBAULT<br><span>HOSPITAL</span></h1>
+<h2>Technicien IT · Bureautique · Infrastructure</h2>
+<p>Une expérience terrain construite autour du support B2B, des environnements bureautiques, des réseaux et des infrastructures — avec une curiosité permanente pour les technologies de demain.</p>
+<div class="buttons"><a class="btn primary" href="#expertises">EXPLORER MON PARCOURS</a><a class="btn" href="#contact">ME CONTACTER</a></div>
+</div>
+<button class="scroll-cue" id="scrollCue" type="button" aria-label="Défiler vers le bas pour voir la suite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</button>
+</section>
+
+<section id="expertises">
+<div class="section-title"><h2>01 / PROFIL</h2><p>Du matériel à l'environnement numérique.</p></div>
+<div class="grid">
+<div class="card"><div class="num">01 — DIGITAL WORKPLACE</div><h3>Écosystème & Matériel</h3><p>Installation, configuration, maintenance et dépannage de postes de travail, serveurs, MFP et périphériques.</p>
+  <div class="card-more"><ul>
+    <li>Parc constructeurs maîtrisé : Toshiba, Lexmark, Sharp, Rex Rotary, Brother, Epson, Kyocera, HP, Konica Minolta, Canon</li>
+    <li>Installation et configuration de postes de travail Windows 98 à Windows 11</li>
+    <li>Gestion et optimisation de stock</li>
+    <li>Support utilisateurs de premier et second niveau</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">02 — INFRASTRUCTURE</div><h3>Réseaux & Systèmes</h3><p>Interventions sur serveurs, baie, routeurs, pare-feu.</p>
+  <div class="card-more"><ul>
+    <li>Installation pare-feu et routeurs Fortinet (Fortigate FG40 / FG60)</li>
+    <li>Administration AD : Comptes, groupes, stratégies</li>
+    <li>Gestion de sauvegarde NAS / Rex-Backup</li>
+    <li>Virtualisation : Hyper-V, Veeam, VirtualBox</li>
+    <li>Protocoles : TCP/IP, DNS, DHCP, SNMP, SMB, LDAP, RDP, SSH...</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">03 — SUPPORT B2B</div><h3>Terrain & Services</h3><p>Accompagnement technique des clients et des équipes terrain, de l'analyse d'incident à la résolution, avec forte autonomie opérationnelle et orientation satisfaction client..</p>
+  <div class="card-more"><ul>
+    <li>Support technique B2B sur site et à distance, auprès des clients et utilisateurs</li>
+    <li>Diagnostic, résolution et suivi d'incidents matériels, logiciels et réseau</li>
+    <li>Pilotage des interventions et accompagnement technique sur un parc multi-sites</li>
+    <li>Référent technique auprès de 20 techniciens : assistance, montée en compétence, partage des bonnes pratiques et résolution des incidents complexes</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">04 — DATA & AUTOMATION</div><h3>Évolution personnel</h3><p>Développement, bases de données, automatisation, Python, IA et nouvelles technologies explorées dans une logique d'apprentissage continu.</p>
+  <div class="card-more"><ul>
+    <li>Développement d'application personnel au vu d'un besoin spécifique</li>
+    <li>Appétence pour les technologies Web : HTML, CSS, JavaScript</li>
+    <li>Données, analyse & reporting</li>
+    <li>Découverte de Python appliqué à l'automatisation</li>
+    <li>Veille active sur les usages de l'intelligence artificielle</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+</div>
+</section>
+
+<section id="parcours">
+<div class="section-title"><h2>02 / PARCOURS</h2><p>Une évolution technique sur plus de 20 ans.</p></div>
+<div class="timeline">
+
+
+<div class="event"><div class="year">Mai 2026 → Août 2026</div><h3>Expert Support Service · Rex Rotary</h3>
+<p>
+<ul style="list-style-type: disc; margin-left: 20px; line-height: 1.6;">
+  <li>Interventions sur site et à distance : MFP, PC, Backup (Synology).</li>
+  <li>Gestion de parc MFP Rex Rotary (Ricoh).</li>
+  <li>Reconditionnement de copieurs en atelier.</li>
+  <li>Déploiements des solutions de sauvegarde NAS (Backup-Rex) via Veeam/Hyper-V.</li>
+  <li>Installation de postes de travail.</li>
+</ul>
+</p>
+</div>
+
+<div class="event">
+  <div class="year">2022 — Mai 2026</div>
+  <h3>Technicien informatique · Clipper Technologies</h3>
+  <ul style="list-style-type: disc; margin-left: 20px; line-height: 1.6;">
+    <li>Déploiement régional de MFP Sharp en autonomie et en binôme avec Expert solutions constructeur.<br>Création des documentations techniques et intranet sharepoint et référent technique pour les déploiements nationaux.</li>
+    <li>Développement d'une application Power Apps / Dataverse et automatisation de flux via Power Automate<br>sur un tenant Microsoft 365 pour le suivi des interventions.</li>
+    <li>Administration de l'application Kizeo Forms et gestion de son API REST Service V3(Swagger).</li>
+    <li>Référent technique pour une équipe d'une vingtaine de techniciens.</li>
+    <li>Support technique et hotline multi-constructeurs.</li>
+    <li>Intervention sur site et à distance sur PC, serveurs et systèmes d'impression (DELL, HPE).</li>
+    <li>Installation et configuration de pare-feu / routeurs Fortinet (Fortigate FG40 / FG60).</li>
+    <li>Gestion et maintenance de parcs MFP (Toshiba, Kyocera, Konica Minolta, Brother, Epson, HP).</li>
+  </ul>
+</div>
+
+<div class="event"><div class="year">2012 → 2022</div><h3>Technicien bureautique · Natis SAS</h3>
+<p>
+<ul style="list-style-type: disc; margin-left: 20px; line-height: 1.6;">
+  <li>Diagnostic et dépannage autonome PC, imprimantes et serveurs — ASUS, Dell, HPE.</li>
+  <li>Support et maintenance multi-constructeurs : Lexmark, Kyocera, Toshiba, Konica Minolta, Brother, Epson, HP.</li>
+  <li>Prise en charge complète des interventions : analyse, résolution, remise en service et suivi client.</li>
+  <li>Gestion autonome du parc MFP Toshiba, de l'installation au maintien en conditions opérationnelles.</li>
+</ul>
+</p>
+</div>
+
+<div class="event">
+  <div class="year">2008 → 2011</div><h3>Technicien bureautique · B.Contact développement</h3>
+  <p>    
+  <ul style="list-style-type: disc; margin-left: 20px; line-height: 1.6; font-family: sans-serif;">
+  <li>Déploiement, mise en service et maintenance des solutions d'impression (Toshiba, KM, Canon).</li>
+  <li>Gestion et supervision du parc : suivi des équipements, interventions et consommables.</li>
+  <li>Gestion autonome des commandes et des stocks, optimisation des approvisionnements.</li>
+  <li>Dématérialisation et numérisation des flux documentaires : scan, workflows et solutions de gestion documentaire.</li>
+  <li>Reconditionnement, diagnostic et dépannage en atelier.</li>
+  </ul>
+  </p>
+  </div>
+
+<div class="event">
+  <div class="year">2004 → 2008</div> 
+  <h3>Magasinier - Gestionnaire de stock · Alpagel (Groupe Relais d'Or Miko)</h3>
+    <p>   
+  <ul style="list-style-type: disc; margin-left: 20px; line-height: 1.6;">
+    <li>Réception, contrôle qualitatif et quantitatif des marchandises (produits frais et surgelés).</li>
+    <li>Gestion et optimisation de l'entreposage en flux tendus dans le respect strict de la chaîne du froid.</li>
+    <li>Suivi informatique des états de stock, réalisation des inventaires tournants et gestion des réapprovisionnements.</li>
+    <li>Préparation et colisage des commandes clients pour les secteurs de la restauration et des collectivités locales.</li>
+    <li>Gestion de la forte saisonnalité de l'activité liée à l'impact touristique régional.</li>
+  </ul>
+  </p>
+  </div>
+
+
+
+
+
+
+<div class="event"><div class="year">2001 → 2004</div><h3>Chargé des techniques opérationnelles · Multilignes Conseil (Télémarketing)</h3>
+<p>
+<ul style="list-style-type: disc; margin-left: 20px; line-height: 1.6; font-family: sans-serif;">
+  <li>Paramétrage d'applications métier PERFORM3 pour opérations d'émission et réception des appels.</li>
+  <li>Maintenance et suivi des fonctionnalités sur les plateaux.</li>
+  <li>Analyse et présentation des statistiques opérationnelles.</li>
+  <li>Gestion relation client et de leurs bases de données.</li>
+  <li>Assistance, support technique et formation des outils aux utilisateurs.</li>
+</ul>
+</p>
+</div>
+
+
+<div class="event"><div class="year">2001</div><h3>DUT Analyste Programmeur appliqué à l'industrie</h3><p>AFPA — Rouen</p></div>
+
+<div class="event"><div class="year">1997</div><h3>Baccalauréat Technologique STI</h3><p>Lycée Joliot-Curie — Romilly-sur-Seine</p></div>
+
+
+
+</div>
+</section>
+
+<section id="technologies">
+<div class="section-title"><h2>03 / TECHNOLOGIES</h2><p>Une matrice de compétences construite sur le terrain.</p></div>
+<div class="matrix">
+<div class="tech"><strong>HARDWARE</strong><span>MFP · Printers · PC · Servers</span>
+  <div class="tech-more"><ul>
+    <li>MFP et imprimantes multi-marques</li>
+    <li>Postes de travail et périphériques</li>
+    <li>Serveurs physiques</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="tech"><strong>NETWORK</strong><span>TCP/IP · Routage IP · Routeurs · Pare-feu</span>
+  <div class="tech-more"><ul>
+    <li>Compréhension du modèle OSI</li>
+    <li>Configuration de routeurs et pare-feu</li>
+    <li>Diagnostic réseau</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="tech"><strong>SYSTEMS</strong><span>Windows · Windows Server</span>
+  <div class="tech-more"><ul>
+    <li>Windows 98 -> 11 et Windows Server</li>
+    <li>Connaissance base Linux</li>
+    <li>Active Directory (comptes, groupes, stratégies)</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="tech"><strong>REMOTE</strong><span>Remote Desktop · Support à distance</span>
+  <div class="tech-more"><ul>
+    <li>Prise en main de postes à distance</li>
+    <li>Teamviewer, Anydesk, Quick Assist, RDP, VNC</li>
+   <li>Linux : SSH, VNC, xrdp</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="tech"><strong>DATA</strong><span>MySQL · Bases de données · Statistiques</span>
+  <div class="tech-more"><ul>
+    <li>bases de données relationnelles</li>
+    <li>Statistiques et reporting</li>
+    <li>SQL, Microsoft Dataverse</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="tech"><strong>VIRTUALISATION</strong><span>Environnements virtualisés</span>
+  <div class="tech-more"><ul>
+    <li>Environnements virtualisés</li>
+    <li>Machines virtuelles de test</li>
+    <li>Isolation des services</li>
+  </ul></div>
+  <button class="tech-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+</div>
+</section>
+
+<section id="lab">
+<div class="section-title"><h2>04 / VEILLE & PROJETS PERSONNELS</h2><p>Explorer. Comprendre. Construire.</p></div>
+<div class="lab">
+<div class="card"><div class="num">LAB 01</div><h3>Linux & HomeLab</h3><p>Expérimentations autour de Linux, des serveurs, des réseaux et des services numériques.</p>
+  <div class="card-more"><ul>
+  <li><strong>Administration Linux / Debian</strong> : installation, configuration, services, maintenance et administration système</li>
+<li><strong>Réseaux & services</strong> : TCP/IP, DNS, DHCP, SSH, routage et configuration des services réseau</li>
+<li><strong>VPN & accès distant</strong> : mise en œuvre et expérimentation de <strong>OpenVPN</strong> et <strong>WireGuard</strong> pour les accès sécurisés à distance</li>
+<li><strong>Virtualisation & conteneurisation</strong> : <strong>Hyper-V, VirtualBox, Docker, Docker Compose</strong></li>
+<li><strong>Automatisation Linux</strong> : création et planification de tâches <strong>CRON</strong>, scripts d'administration, maintenance et sauvegardes</li>
+<li><strong>Scripting</strong> : développement de scripts <strong>Bash / Shell</strong> et <strong>PowerShell</strong> pour automatiser les tâches techniques</li>
+<li><strong>Déploiement d'imprimantes</strong> : scripts d'automatisation pour l'installation et le <strong>déploiement d'imprimantes réseau</strong> sur les postes utilisateurs</li>
+<li><strong>Services auto-hébergés</strong> : déploiement, configuration et maintenance de services numériques dans un environnement personnel</li>
+
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">LAB 02</div><h3>Python · Data · IA</h3><p>Découverte et approfondissement des approches liées à l'intelligence artificielle.</p>
+  <div class="card-more"><ul>
+
+<li><strong>Environnement IA local</strong> : installation et configuration d'un <strong>serveur Ubuntu</strong> dédié à l'hébergement et à l'exécution de modèles d'IA</li>
+<li><strong>Modèles IA locaux</strong> : déploiement et expérimentation avec <strong>Ollama</strong> pour exécuter des modèles localement et sans dépendance à une API cloud</li>
+<li><strong>Interface IA</strong> : mise en place et configuration de <strong>Open WebUI</strong> pour l'utilisation et la gestion des modèles IA depuis une interface Web</li>
+<li><strong>Agents IA & automatisation</strong> : expérimentation avec <strong>OpenClaw</strong> et <strong>Hermes</strong> pour explorer les assistants autonomes, l'exécution de tâches et l'interaction avec différents services</li>
+
+
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+
+
+<!--
+
+<div class="card"><div class="num">LAB 03</div><h3>IoT · ESP32 · MQTT</h3><p>Exploration de systèmes connectés, capteurs, MQTT/MQTTS et supervision de données.</p>
+  <div class="card-more"><ul>
+    <li>Capteurs connectés (température, humidité)</li>
+    <li>Protocole MQTT/MQTTS et broker personnel</li>
+    <li>Tableaux de bord de supervision en temps réel</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<div class="card"><div class="num">LAB 04</div><h3>Automation</h3><p>Recherche de solutions pour automatiser, fiabiliser et simplifier les tâches techniques.</p>
+  <div class="card-more"><ul>
+    <li>Scripts pour fiabiliser les tâches techniques récurrentes</li>
+    <li>Automatisation de la gestion de parc</li>
+    <li>Recherche d'outils no-code / low-code</li>
+  </ul></div>
+  <button class="card-arrow" type="button" aria-label="Voir plus de détails" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+
+-->
+
+</div>
+</section>
+
+<section>
+<p class="quote">« Comprendre <span>pourquoi</span> un problème survient, trouver sa cause et construire une solution fiable. »</p>
+</section>
+
+<section id="contact">
+<div class="section-title"><h2>05 / CONTACT</h2><p>Un projet, une opportunité, un échange technique ?</p></div>
+<div class="contact">
+<div class="contactbox"><h3>THIBAULT HOSPITAL</h3><p>Technicien informatique · bureautique · infrastructure</p><p>Disponible pour échanger autour d'une opportunité technique, d'un projet ou d'un environnement IT.</p></div>
+<div class="contactbox"><h3>LET'S CONNECT</h3><p><strong>Email</strong><br><a href="mailto:Thibault.hospital@gmail.com">Thibault.hospital@gmail.com</a></p><p><strong>Téléphone</strong><br>06 38 05 31 93</p><p><strong>LinkedIn</strong><br><a href="https://www.linkedin.com/in/thibault-hospital-8b181524b/" target="_blank" rel="noopener noreferrer">Profil professionnel</a></p></div>
+</div>
+</section>
+
+<footer>THIBAULT HOSPITAL · TECHNICAL PROFILE · 2026</footer>
+
+<!-- Retour en haut -->
+<button id="totop" aria-label="Revenir en haut">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="6 11 12 5 18 11"></polyline></svg>
+</button>
+
+<!-- Assistant -->
+<div id="assistant-overlay"></div>
+<div id="assistant">
+  <div class="ahead">
+    <div class="aavatar"></div>
+    <div>
+      <div class="atitle">Assistant IA</div>
+      <div class="asub">Répond en quelques secondes !!</div>
+    </div>
+    <button class="amin" id="amin" aria-label="Réduire">—</button>
+  </div>
+  <div class="abody" id="abody"></div>
+  <div class="chips" id="achips"></div>
+  <form class="aform" id="aform">
+    <input id="ainput" type="text" placeholder="Posez votre question…" autocomplete="off">
+    <button type="submit" aria-label="Envoyer">↵</button>
+  </form>
+</div>
+<button id="assistant-bubble" aria-label="Ouvrir l'assistant">
+  <span class="dot2"></span>
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#55d6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+</button>
+
+<script>
+/* ================= Retour en haut ================= */
+(function(){
+  const btn = document.getElementById('totop');
+  const onScroll = () => btn.classList.toggle('show', window.scrollY > window.innerHeight * 0.6);
+  document.addEventListener('scroll', onScroll, { passive:true });
+  btn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+  onScroll();
+})();
+
+/* ================= Mode clair / sombre ================= */
+(function(){
+  const root = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  // Respecte la préférence système au premier affichage (pas de stockage navigateur).
+  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  if(prefersLight) root.setAttribute('data-theme', 'light');
+
+  function setTheme(theme){
+    if(theme === 'light'){ root.setAttribute('data-theme','light'); }
+    else { root.removeAttribute('data-theme'); }
+    toggle.setAttribute('aria-label', theme === 'light' ? 'Basculer en mode sombre' : 'Basculer en mode clair');
+  }
+
+  toggle.addEventListener('click', () => {
+    const isLight = root.getAttribute('data-theme') === 'light';
+    setTheme(isLight ? 'dark' : 'light');
+  });
+})();
+
+/* ================= Flèches d'ouverture (cards / tech) ================= */
+(function(){
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.card-arrow, .tech-arrow');
+    if(!btn) return;
+    const container = btn.closest('.card, .tech');
+    if(!container) return;
+    const isOpen = container.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+})();
+
+/* ================= Fondu de l'image de fond du hero au scroll ================= */
+(function(){
+  const heroBg = document.getElementById('heroBg');
+  const hero = document.querySelector('.hero');
+  const scrollCue = document.getElementById('scrollCue');
+  if(!heroBg || !hero) return;
+  const baseOpacity = .85; // transparence maximale de l'image (visible tout en haut)
+  const fadeDistance = 350; // distance de scroll (px) pour un fondu complet
+  let ticking = false;
+
+  function updateHeroFade(){
+    const progress = Math.min(Math.max(window.scrollY / fadeDistance, 0), 1);
+    heroBg.style.opacity = (baseOpacity * (1 - progress)).toFixed(3);
+    if(scrollCue){
+      scrollCue.style.opacity = (1 - progress).toFixed(3);
+      scrollCue.style.pointerEvents = progress > .6 ? 'none' : 'auto';
+    }
+    ticking = false;
+  }
+
+  function onScroll(){
+    if(!ticking){
+      requestAnimationFrame(updateHeroFade);
+      ticking = true;
+    }
+  }
+
+  if(scrollCue){
+    scrollCue.addEventListener('click', () => {
+      const next = document.getElementById('expertises');
+      if(next) next.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', updateHeroFade);
+  updateHeroFade();
+})();
+
+/* ================= Menu mobile (hamburger) ================= */
+(function(){
+  const menuToggle = document.getElementById('menu-toggle');
+  const mainNav = document.getElementById('main-nav');
+  if(!menuToggle || !mainNav) return;
+
+  function closeMenu(){
+    mainNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+  function openMenu(){
+    mainNav.classList.add('open');
+    menuToggle.setAttribute('aria-expanded', 'true');
+  }
+
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.contains('open');
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  // Ferme le menu quand on choisit un lien
+  mainNav.addEventListener('click', (e) => {
+    if(e.target.closest('a')) closeMenu();
+  });
+
+  // Ferme le menu si la fenêtre repasse en format desktop
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 850) closeMenu();
+  });
+})();
+
+
+/* ================= Base de connaissances ================= */
+
+// chargement asynchrone de la base de connaissances JSON knowledge
+let KB = {};
+
+async function loadKB(){
+  const fichiers = ['profil','parcours','competences','constructeurs','disponibilite'];
+  const morceaux = await Promise.all(
+    fichiers.map(f => fetch(`knowledge/${f}.json`).then(r => r.json()))
+  );
+  morceaux.forEach(part => Object.assign(KB, part));
+}
+
+
+//const FALLBACK = "Cette information n'apparaît pas dans le CV. En revanche, je peux vous renseigner sur son parcours, ses compétences techniques, les constructeurs MFP qu'il maîtrise, ou sa disponibilité.";
+
+const RELAY_URL = "https://ubuntu-openclaw.tailba9d53.ts.net/ask";
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+async function askHermes(q){
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 100000);
+
+  try {
+    const r = await fetch(RELAY_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ question: q }),
+      signal: ctrl.signal
+    });
+
+    if (!r.ok) {
+      throw new Error(`Erreur HTTP ${r.status}`);
+    }
+
+    const d = await r.json();
+
+    if (!d.answer || typeof d.answer !== 'string') {
+      throw new Error('Réponse Hermes absente ou invalide');
+    }
+
+    return d.answer;
+
+  } catch (e) {
+    console.error("Erreur de communication avec Hermes :", e);
+
+    if (e.name === 'AbortError') {
+      return "L'assistant met trop de temps à répondre. Merci de réessayer.";
+    }
+
+    return "Impossible de contacter l'assistant pour le moment. Merci de réessayer.";
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function normalize(s){
+  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+
+function matchTopic(text){
+  const t = normalize(text);
+  let best = null, bestScore = 0;
+  for(const key in KB){
+    const topic = KB[key];
+    let score = 0;
+    for(const kw of topic.keywords){
+      if(t.includes(normalize(kw))) score += kw.length; // favor longer/more specific matches
+    }
+    if(score > bestScore){ bestScore = score; best = topic; }
+  }
+  return bestScore > 0 ? best : null;
+}
+
+/* ================= Moteur de chat ================= */
+const abody = document.getElementById('abody');
+const achips = document.getElementById('achips');
+const aform = document.getElementById('aform');
+const ainput = document.getElementById('ainput');
+
+const SUGGESTIONS = [
+  { label:"🖨 Le profil", q:"Quel est son expertise ?" },
+ // { label:"💼 Son parcours", q:"Quel est son parcours ?" },
+ // { label:"🌐 Compétences réseau", q:"A-t-il des compétences réseau ?" },
+  { label:"📅 Sa disponibilité", q:"Quelle est sa disponibilité ?" },
+  { label:"✉️ Le contacter", q:"Comment le contacter ?" }
+];
+
+function addMessage(html, who){
+  const div = document.createElement('div');
+  div.className = 'msg ' + who;
+  div.innerHTML = html;
+  abody.appendChild(div);
+  abody.scrollTop = abody.scrollHeight;
+  return div;
+}
+
+function renderChips(){
+  achips.innerHTML = "";
+  SUGGESTIONS.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.textContent = s.label;
+    b.addEventListener('click', () => handleUserInput(s.q));
+    achips.appendChild(b);
+  });
+}
+
+function contactActions(){
+  return `<div style="display:flex;flex-direction:column;gap:7px;margin-top:9px">
+    <a class="go" href="mailto:Thibault.hospital@gmail.com" style="text-align:left">✉️ Thibault.hospital@gmail.com</a>
+    <a class="go" href="tel:0638053193" style="text-align:left">📞 06 38 05 31 93</a>
+    <button class="go" data-goto="contact">↓ Voir la section contact</button>
+  </div>`;
+}
+
+function handleUserInput(text){
+  if(!text || !text.trim()) return;
+
+  addMessage(escapeHtml(text), 'user');
+
+  const topic = matchTopic(text);
+
+  setTimeout(async () => {
+    if(topic){
+      if(topic.contactMode){
+        addMessage(topic.reply + contactActions(), 'bot');
+      } else {
+        const gotoBtn = topic.goto
+          ? `<button class="go" data-goto="${topic.goto}">↓ ${topic.label}</button>`
+          : "";
+
+        addMessage(topic.reply + gotoBtn, 'bot');
+      }
+    } else {
+      const wait = addMessage(
+        '<span class="typing" role="status" aria-label="Réflexion en cours"><span></span><span></span><span></span></span>',
+        'bot'
+      );
+
+      const rep = await askHermes(text);
+
+      // Remplacement systématique des points animés
+      wait.textContent = rep || "Aucune réponse reçue.";
+      wait.style.whiteSpace = "pre-line";
+
+      abody.scrollTop = abody.scrollHeight;
+    }
+  }, 380);
+}
+
+aform.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const v = ainput.value;
+  ainput.value = "";
+  handleUserInput(v);
+});
+
+abody.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-goto]');
+  if(btn){
+    const el = document.getElementById(btn.dataset.goto);
+    if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+    dockAssistant();
+  }
+});
+
+/* ================= Ouverture / animation de l'assistant ================= */
+const assistant = document.getElementById('assistant');
+const overlay = document.getElementById('assistant-overlay');
+const bubble = document.getElementById('assistant-bubble');
+const amin = document.getElementById('amin');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function layoutIntro(){
+  const w = Math.min(480, window.innerWidth * 0.92);
+  const h = Math.min(520, window.innerHeight * 0.78);
+  assistant.style.width = w + 'px';
+  assistant.style.height = h + 'px';
+  assistant.style.left = ((window.innerWidth - w) / 2) + 'px';
+  assistant.style.top = ((window.innerHeight - h) / 2) + 'px';
+  assistant.style.borderRadius = '20px';
+}
+
+function layoutDocked(){
+  const w = Math.min(340, window.innerWidth * 0.92);
+  const h = Math.min(480, window.innerHeight * 0.72);
+  assistant.style.width = w + 'px';
+  assistant.style.height = h + 'px';
+  assistant.style.left = (window.innerWidth - w - 24) + 'px';
+  assistant.style.top = (window.innerHeight - h - 24) + 'px';
+  assistant.style.borderRadius = '16px';
+  assistant.classList.add('docked');
+}
+
+function dockAssistant(){
+  overlay.classList.add('hidden');
+  layoutDocked();
+}
+
+function minimizeAssistant(){
+  assistant.style.display = 'none';
+  bubble.classList.add('show');
+}
+
+amin.addEventListener('click', minimizeAssistant);
+bubble.addEventListener('click', () => {
+  assistant.style.display = 'flex';
+  layoutDocked();
+  bubble.classList.remove('show');
+});
+
+window.addEventListener('resize', () => {
+  if(assistant.classList.contains('docked')) layoutDocked();
+});
+
+/* Séquence d'ouverture au chargement */
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    await loadKB();
+  } catch (err) {
+    console.error("Chargement de knowledge/*.json impossible :", err);
+  }
+  layoutIntro();
+  requestAnimationFrame(() => requestAnimationFrame(() => assistant.classList.add('visible')));
+  renderChips();
+  //addMessage("Bonjour 👋 Je suis l'assistant IA de Thibault. Vous pouvez me poser vos questions concernant son CV.<br>", 'bot');
+  /*addMessage("Bonjour 👋 Je suis l'assistant IA de Thibault. Vous pouvez me poser vos questions concernant son CV.<br>" 
+             + `<button class="go" id="introContinue" style="margin-top:11px">🚀 C'est parti !</button>`, 'bot');
+*/
+  addMessage("Bonjour 👋 Je suis l'assistant IA de Thibault. Vous pouvez me poser vos questions concernant son CV.<br>"
+    + `<button class="go" id="introContinue" style="display:none;"></button>`, 'bot');
+  
+// ferme la petite fenetre en bulle
+const closeIntro = () => {
+    overlay.classList.add('hidden');
+    layoutDocked();
+};
+document.getElementById('assistant-overlay').addEventListener('click', closeIntro);
+document.getElementById('introContinue').addEventListener('click', closeIntro);
+
+// Si personne n'a interagi après 1s → on range en bulle plutôt que d'ouvrir le chat
+const introTimer = setTimeout(() => {
+    overlay.classList.add('hidden');
+    minimizeAssistant();
+}, reduceMotion ? 0 : 2000);
+
+// Si l'utilisateur clique/tape avant les 7s, on annule le passage auto en bulle
+aform.addEventListener('submit', () => clearTimeout(introTimer), { once:true });
+achips.addEventListener('click', () => clearTimeout(introTimer), { once:true });
+
+});
+</script>
+
+</body>
+</html>
