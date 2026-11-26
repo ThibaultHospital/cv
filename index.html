@@ -748,20 +748,34 @@ function contactActions(){
 
 function handleUserInput(text){
   if(!text || !text.trim()) return;
-  addMessage(text, 'user');
+
+  addMessage(escapeHtml(text), 'user');
+
   const topic = matchTopic(text);
+
   setTimeout(async () => {
     if(topic){
       if(topic.contactMode){
         addMessage(topic.reply + contactActions(), 'bot');
       } else {
-        const gotoBtn = topic.goto ? `<button class="go" data-goto="${topic.goto}">↓ ${topic.label}</button>` : "";
+        const gotoBtn = topic.goto
+          ? `<button class="go" data-goto="${topic.goto}">↓ ${topic.label}</button>`
+          : "";
+
         addMessage(topic.reply + gotoBtn, 'bot');
       }
     } else {
-      const wait = addMessage('<span class="typing" role="status" aria-label="Réflexion en cours"><span></span><span></span><span></span></span>', 'bot');
+      const wait = addMessage(
+        '<span class="typing" role="status" aria-label="Réflexion en cours"><span></span><span></span><span></span></span>',
+        'bot'
+      );
+
       const rep = await askHermes(text);
-      wait.innerHTML = rep ? escapeHtml(rep).replace(/\n/g,'<br>') : FALLBACK;
+
+      // Remplacement systématique des points animés
+      wait.textContent = rep || "Aucune réponse reçue.";
+      wait.style.whiteSpace = "pre-line";
+
       abody.scrollTop = abody.scrollHeight;
     }
   }, 380);
