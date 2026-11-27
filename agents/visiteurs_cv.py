@@ -402,9 +402,21 @@ def main():
 
     known_ids = set(state.get("session_ids", []))
 
-    recent_sessions = get_sessions(
-        now - timedelta(minutes=30),
-        now,
+# Recherche sur les dernières 24 heures pour éviter
+# de manquer les sessions remontées tardivement par Umami.
+recent_sessions = get_sessions(
+    now - timedelta(hours=24),
+    now,
+)
+
+log(f"Sessions retournées par Umami : {len(recent_sessions)}")
+if recent_sessions:
+    log(
+        "Sessions trouvées : "
+        + ", ".join(
+            f"{item.get('firstAt')} | {item.get('id')}"
+            for item in recent_sessions[:10]
+        )
     )
 
     new_sessions = [
@@ -412,9 +424,13 @@ def main():
         if item.get("id") and item["id"] not in known_ids
     ]
 
-    if not new_sessions:
-        log("Aucune nouvelle session.")
-        return
+if not new_sessions:
+    log(
+        f"Aucune nouvelle session. "
+        f"{len(recent_sessions)} session(s) récupérée(s), "
+        f"{len(known_ids)} ID(s) déjà mémorisé(s)."
+    )
+    return
 
     new_sessions.sort(
         key=lambda item: item.get("firstAt") or ""
