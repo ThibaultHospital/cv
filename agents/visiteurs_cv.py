@@ -400,37 +400,40 @@ def main():
         log(f"{len(ids)} sessions mémorisées. Aucune alerte initiale.")
         return
 
+
+
     known_ids = set(state.get("session_ids", []))
 
-# Recherche sur les dernières 24 heures pour éviter
-# de manquer les sessions remontées tardivement par Umami.
-recent_sessions = get_sessions(
-    now - timedelta(hours=24),
-    now,
-)
-
-log(f"Sessions retournées par Umami : {len(recent_sessions)}")
-if recent_sessions:
-    log(
-        "Sessions trouvées : "
-        + ", ".join(
-            f"{item.get('firstAt')} | {item.get('id')}"
-            for item in recent_sessions[:10]
-        )
+    # Recherche sur les dernières 24 heures pour éviter
+    # de manquer les sessions remontées tardivement par Umami.
+    recent_sessions = get_sessions(
+        now - timedelta(hours=24),
+        now,
     )
+
+    log(f"Sessions retournées par Umami : {len(recent_sessions)}")
+
+    if recent_sessions:
+        log(
+            "Sessions trouvées : "
+            + ", ".join(
+                f"{item.get('firstAt')} | {item.get('id')}"
+                for item in recent_sessions[:10]
+            )
+        )
 
     new_sessions = [
         item for item in recent_sessions
         if item.get("id") and item["id"] not in known_ids
     ]
 
-if not new_sessions:
-    log(
-        f"Aucune nouvelle session. "
-        f"{len(recent_sessions)} session(s) récupérée(s), "
-        f"{len(known_ids)} ID(s) déjà mémorisé(s)."
-    )
-    return
+    if not new_sessions:
+        log(
+            f"Aucune nouvelle session. "
+            f"{len(recent_sessions)} session(s) récupérée(s), "
+            f"{len(known_ids)} ID(s) déjà mémorisé(s)."
+        )
+        return
 
     new_sessions.sort(
         key=lambda item: item.get("firstAt") or ""
@@ -447,6 +450,8 @@ if not new_sessions:
 
     save_state(updated_ids)
     log("Historique mis à jour.")
+
+
 
 
 if __name__ == "__main__":
